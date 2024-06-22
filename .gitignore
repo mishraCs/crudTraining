@@ -3,7 +3,6 @@ vendor/
 phpmailer_smtp/
 uploads/
 variable.php
-class_function.php
 db.php
 termsofservice.php
 privacy.php
