@@ -46,4 +46,32 @@ a.header_link:hover {
     background-color: purple;
     background-position: center;
 }
+.multi_div{
+    position: relative;
+}
+.img_button{
+    display: flex;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    margin-top: 5px;
+
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+  }
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+.container {
+    padding: 2px 16px;
+  }
+  .pointer{
+    cursor: pointer;
+  }
+.dropdown-menu.pointer.show {
+    cursor: pointer;
+}
+
 

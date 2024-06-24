@@ -8,6 +8,20 @@ class profile_user{
         $user = $result->fetch_assoc();
         return $user;
     }
+
+    public function user_file($conn){
+        $user_id = $_SESSION['user_id'];
+        $stmt = "SELECT * FROM user_profile WHERE user_id='$user_id'";
+        $result = $conn->query($stmt);
+        // $row = $result->fetch_assoc();
+        return $result;
+    }
+
+    public function delete_user_file($conn, $user_id){
+        $stmt = "Delete from user_profile where user_id = $user_id";
+        $result = $conn->query($stmt);
+    }
+
 }
 
 class verify_user {
@@ -151,7 +165,7 @@ class insert_multiple_file {
                     $upload_dir = 'uploads/' . $fileName;
                     if(move_uploaded_file($tmpName, $upload_dir)){
                         $stmt = $conn->prepare("INSERT INTO user_profile (profile_image, user_id) VALUES (?, ?)");
-                        $stmt->bind_param("si", $fileName, $user_id);
+                        $stmt->bind_param("si", $upload_dir, $user_id);
                         if($stmt->execute()){
                             echo $fileName . " uploaded successfully<br>";
                         } else {
