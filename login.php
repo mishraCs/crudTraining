@@ -5,8 +5,8 @@ if (isset($_SESSION['user_id'])) {
     header('Location: home.php');
     exit();
 }
-include 'class_function.php';
-include 'db.php';
+// include 'class_function.php';
+// include 'db.php';
 ob_start();
 $login = new verify_user;
 if(isset($_GET['email']) && isset($_GET['active'])){

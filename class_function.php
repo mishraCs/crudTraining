@@ -141,26 +141,35 @@ class delete_user{
     }
 }
 
-class insert_multiple_file{
-    public function name_file(){
-       $user_file =  $_FILES['profile_image'];
-    //    die(print_r($user_file));
-       if (!empty($user_file["name"])) {
-        $target_dir = "uploads/";
-        foreach($user_file['name'] as $file){
-            $target_file = $target_dir . basename($file["name"]);
-            move_uploaded_file($target_file["tmp_name"], $target_file);
-            // $query = "insert into user_profile (profile_image) VALUES ('$target_file')";
-            //  mysqli_query($conn, $query);
-
+class insert_multiple_file {
+    public function name_file($conn, $user_id, $userFile) {
+        if(isset($_POST['submit'])){
+            foreach($userFile['name'] as $key => $name){
+                if($userFile['error'][$key] === 0){
+                    $tmpName = $userFile['tmp_name'][$key];
+                    $fileName = time() . '_' . basename($name); 
+                    $upload_dir = 'uploads/' . $fileName;
+                    if(move_uploaded_file($tmpName, $upload_dir)){
+                        $stmt = $conn->prepare("INSERT INTO user_profile (profile_image, user_id) VALUES (?, ?)");
+                        $stmt->bind_param("si", $fileName, $user_id);
+                        if($stmt->execute()){
+                            echo $fileName . " uploaded successfully<br>";
+                        } else {
+                            echo "Error uploading file $fileName : " . $stmt->error . "<br>";
+                        }
+                        $stmt->close();
+                    } else {
+                        echo "Error moving file $fileName<br>";
+                    }
+                } else {
+                    echo "Error uploading file $fileName<br>";
+                }
+            }
         }
-        if($conn->connect_error){
-            echo"file not inserted". connect_error();
-        }
-       }
-       return "File uploded";
+        return "File upload complete";
     }
 }
+
 
 
 

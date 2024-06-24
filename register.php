@@ -1,7 +1,5 @@
 <?php
 include 'header.php'; 
-include 'db.php';
-include 'class_function.php';
 ?>
 
 <?php

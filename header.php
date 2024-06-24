@@ -1,6 +1,7 @@
 <?php 
  session_start();
  include 'db.php';
+ include 'class_function.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +37,6 @@
                 <?php endif; ?>
                 <div class="user_div">
                     <?php if (isset($_SESSION['user_id'])){
-                        include 'class_function.php';
                         $header_user = new profile_user;
                         $row = $header_user->current_user($conn);?>
                         <a class="header_link" href="#"><?php echo $row['first_name']; ?></a>
