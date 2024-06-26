@@ -5,18 +5,26 @@ if (isset($_SESSION['user_id'])) {
     header('Location: home.php');
     exit();
 }
-// include 'class_function.php';
-// include 'db.php';
 ob_start();
-$login = new verify_user;
+$login = new VerifyUser;
 if(isset($_GET['email']) && isset($_GET['active'])){
-    echo $login->verify_email($conn);
-    die('Login not complete');
+    $result = $login->verify_email($conn);
+    if(isset($result)){
+        ?> <div class="alert alert-danger" role="alert">
+        <?php echo $result."<br>"; ?>
+      </div> <?php
+    }
 }
+
 if(isset($_POST['submit'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
-   echo  $login->login($conn);
+   $result =  $login->login($conn);
+   if(isset($result)){
+        ?> <div class="alert alert-danger" role="alert">
+        <?php echo $result."<br>"; ?>
+    </div> <?php
+    }
 }
 
 ?>
@@ -31,4 +39,3 @@ if(isset($_POST['submit'])){
     </form>
 </div>
  <?php include 'footer.php';?>
-

@@ -24,6 +24,17 @@ a.header_link:hover {
 .user_div{
     float:right;
 }
+.form_error{
+    color:red;
+    font-weight: bold;
+}
+.field-icon {
+    float: right;
+    margin-left: -25px;
+    margin-top: -25px;
+    position: relative;
+    z-index: 2;
+}
 .logout{
     margin-right: 20px;
 }
@@ -72,6 +83,9 @@ a.header_link:hover {
   }
 .dropdown-menu.pointer.show {
     cursor: pointer;
+}
+.hjk{
+    color: red;
 }
 
 

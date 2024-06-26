@@ -1,6 +1,6 @@
 <?php 
 include 'header.php'; 
-$limit =1; 
+$limit =2; 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $start_from = ($page-1) * $limit; 
 $sql = "SELECT * FROM users LIMIT $start_from, $limit";
@@ -37,10 +37,10 @@ $total_pages = ceil($total_records / $limit);
                         <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Action
                         </button>
-                        <div class="dropdown-menu">
+                        <div class="dropdown-menu pointer">
                           <a class="dropdown-item" href="update.php?user_id=<?php echo $row['user_id']; ?>">Update</a>
-                          <a class="dropdown-item" type="btn" data-toggle="modal" data-target="#deletemodal">delete.php</a>
-                          <a class="dropdown-item" href="upload_multi_file.php?user_id=<?php echo $row['user_id']; ?>">Upload Multiple</a>
+                          <a class="dropdown-item" type="btn" data-toggle="modal" data-target="#deletemodal">Delete</a>
+                          <a class="dropdown-item" href="upload_multi_file.php?user_id=<?php echo $row['user_id']; ?>">Upload File</a>
                         </div>
                       </div>
                     </td>

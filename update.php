@@ -5,7 +5,7 @@ if (!isset($_GET['user_id'])) {
     exit();
 }
 $user_id = $_GET['user_id'];
-$update = new update_login_user;
+$update = new UpdataLoginUser;
 $user = $update->select_user($conn, $user_id);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -20,8 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input class="form-control" type="text" id="first_name" name="first_name" value="<?php echo $user['first_name']; ?>" required><br>
         <label for="last_name">Last Name:</label>
         <input class="form-control" type="text" id="last_name" name="last_name" value="<?php echo $user['last_name']; ?>" required><br>
-        <label for="email">Email:</label>
-        <input class="form-control" type="email" id="email" name="email" value="<?php echo $user['email']; ?>" required><br>
+        <!-- <label for="email">Email:</label>
+        <input class="form-control" type="email" id="email" name="email" value="<?php// echo $user['email']; ?>" required><br> -->
         <label for="profile_image">Profile Image:</label>
         <input class="form-control" type="file" id="profile_image" name="profile_image"><br>
         <button class="btn btn-success" type="submit">Update</button>

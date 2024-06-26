@@ -1,6 +1,6 @@
 <?php
 include 'header.php';
-$userInfo = new profile_user;
+$userInfo = new ProfileUser;
 $user = $userInfo->current_user($conn);
 ?>
 <link rel="stylesheet" href="./css/index.css">

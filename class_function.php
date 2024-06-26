@@ -1,5 +1,28 @@
 <?php
-class profile_user{
+class ProfileUser{
+
+    public function sessionFile($conn, $profile_id){
+        $userId = $_SESSION['user_id'];
+       $sql = "select *from users where profile_id = '$profile_id'";
+       $result = $conn->query($sql);
+       if(mysqli_num_rows($result)>0){
+           $profileRow = $result->fetch_assoc();
+           $userCheck = $profileRow['profile_id'];
+           if($profile_id == $userCheck){
+               return "Please add another profile picture before deleted";
+           }else{
+            return false;
+           }
+        }
+    }
+
+    public function chekuser($conn,$email) {
+        $sql = "SELECT * FROM users WHERE email='$email'";
+        $result = $conn->query($sql);
+        if(mysqli_num_rows($result)>0){
+            return "Choose another email! <br> This email already exist";
+        }
+    }
 
     public function current_user($conn){
         $user_id = $_SESSION['user_id'];
@@ -13,7 +36,6 @@ class profile_user{
         $user_id = $_SESSION['user_id'];
         $stmt = "SELECT * FROM user_profile WHERE user_id='$user_id'";
         $result = $conn->query($stmt);
-        // $row = $result->fetch_assoc();
         return $result;
     }
 
@@ -22,9 +44,29 @@ class profile_user{
         $result = $conn->query($stmt);
     }
 
+    public function update_profile_picture($conn){
+        $profilePath = $_GET['profilePath'];
+        $userId = $_GET['user_id'];
+        $stmt = "SELECT * FROM user_profile WHERE profile_image ='$profilePath'";
+        $result = $conn->query($stmt);
+        $profileRow = $result->fetch_assoc();
+        $profileId = $profileRow['profile_id'];
+        if (!empty($profilePath) && !empty($userId)) {
+            $stmt = $conn->prepare("UPDATE users SET profile_image = ?, profile_id = ? WHERE user_id = ?");
+            $stmt->bind_param("ssi", $profilePath, $profileId, $userId);
+            if ($stmt->execute()){
+                $_SESSION['profile_image'] = $profilePath;
+                header('Location: dashboard.php');
+                exit();
+            } else {
+                echo "Error: " . $stmt->error;
+            }
+        $stmt->close();
+        }
+    }
 }
 
-class verify_user {
+class VerifyUser {
 
   public function verify_email($conn){
     $active = $_GET['active'];
@@ -35,12 +77,13 @@ class verify_user {
         $user = $result->fetch_assoc();
         $_SESSION['user_id'] = $user['user_id'];
         header('Location: dashboard.php');
-        die('I can not redirect');
+        return 'I can not redirect';
     }else{
-        die('Try again!!');
+       return 'Try again!!';
     }
-    die('There is verify issue');
+    return 'There is verify issue';
   }
+
   public function login($conn){
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -79,42 +122,45 @@ class verify_user {
                 if(!$mail->Send()){
                     echo $mail->ErrorInfo;
                 }else{
-                    return 'Sent<br>';
+                    return '<br>';
                 }
             }
             echo smtp_mailer($email,'Subject',$message);
-            die('click link! send on your registered email ');
+            return 'click link! send on your registered email ';
         } else {
-            echo "Invalid password.";
+            return "Invalid password.";
         }
     } else {
-        echo "No user found with this email.";
+        return "No user found with this email.";
     }
   }
 }
 
-
-class add_user{
+class AddUser{
     public function register_user($conn){
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
         $email = $_POST['email'];
+        $profile = new ProfileUser;
+        $data = $profile->chekuser($conn,$email);
+        if($data){
+            return $data;
+        }
+        $password = $_POST['password'];
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-
         $target_dir = "uploads/";
         $target_file = $target_dir . basename($_FILES["profile_image"]["name"]);
         move_uploaded_file($_FILES["profile_image"]["tmp_name"], $target_file);
-
         $sql = "INSERT INTO users (first_name, last_name, email, user_password, profile_image) VALUES ('$first_name', '$last_name', '$email', '$password', '$target_file')";
         if ($conn->query($sql) === TRUE) {
             header('Location: login.php');
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            return "Error: " . $sql . "<br>" . $conn->error;
         }
     }
 }
 
-class update_login_user{
+class UpdataLoginUser{
     public function select_user($conn, $user_id){
         $sql = "SELECT * FROM users WHERE user_id='$user_id'";
         $result = $conn->query($sql);
@@ -125,14 +171,14 @@ class update_login_user{
     public function update_info_user($conn, $user_id){
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
-        $email = $_POST['email'];
+        // $email = $_POST['email'];
             if (!empty($_FILES["profile_image"]["name"])) {
                 $target_dir = "uploads/";
                 $target_file = $target_dir . basename($_FILES["profile_image"]["name"]);
                 move_uploaded_file($_FILES["profile_image"]["tmp_name"], $target_file);
-                $sql = "UPDATE users SET first_name='$first_name', last_name='$last_name', email='$email', profile_image='$target_file' WHERE user_id='$user_id'";
+                $sql = "UPDATE users SET first_name='$first_name', last_name='$last_name', profile_image='$target_file' WHERE user_id='$user_id'";
             } else {
-                $sql = "UPDATE users SET first_name='$first_name', last_name='$last_name', email='$email' WHERE user_id='$user_id'";
+                $sql = "UPDATE users SET first_name='$first_name', last_name='$last_name' WHERE user_id='$user_id'";
             }
                 if ($conn->query($sql) === TRUE) {
                     header('Location: home.php');
