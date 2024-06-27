@@ -47,6 +47,18 @@ a.header_link:hover {
 .user_info{
     margin-left:10px;
     margin-right:10px;
+    display: flex;
+}
+.loginInfoImg{
+    width:280px;
+    height:280px;
+}
+.UsersImg{
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    object-position: center;
 }
 .banner_img{
     width: 95%;
@@ -86,6 +98,12 @@ a.header_link:hover {
 }
 .hjk{
     color: red;
+}
+table{
+    text-align: center;
+}
+.info_table{
+    text-align: left;
 }
 
 

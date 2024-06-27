@@ -1,40 +1,15 @@
-<?php
- include 'header.php';
- include 'db.php';
- if (!isset($_SESSION['user_id'])) {
+<?php include 'header.php';
+if (!isset($_GET['user_id'])) {
     header('Location: login.php');
     exit();
 }
- if(isset($_GET['profile_id'])){
-    $profile_id = $_GET['profile_id'];
-    $result = new ProfileUser;
-    $data = $result->sessionFile($conn, $profile_id);
-        if(isset($data)){?>
-        <div id="remove" class="alert alert-danger" role="alert">
-            <?php echo "<div id='data' class='form_error'>". $data ."</div>"?>
-        </div>
-<?php }else{
-     $stmt = "SELECT * FROM user_profile WHERE profile_id = '$profile_id'";
-     $result = $conn->query($stmt);
-     $row = $result->fetch_assoc();
-     if(unlink($row['profile_image'])){
-         echo "profile deleted";
-     }else{
-         echo("I can't delete this profile");
-     }
-     $stmt = "DELETE FROM user_profile WHERE profile_id = '$profile_id' ";
-     if(mysqli_query($conn, $stmt)){
-         echo "all related data deleted";
-         header('Location: dashboard.php');
-     }else{
-         echo('I cant delete data');
-     }
-}
-}
-$user_id = $_SESSION['user_id'];
-$sql = "SELECT * FROM users WHERE user_id='$user_id'";
+$userId = $_GET['user_id'];
+$sql = "SELECT *FROM users WHERE user_id = '$userId' ";
 $result = $conn->query($sql);
-$user = $result->fetch_assoc();?>
+if($result->num_rows>0){
+   $user = $result->fetch_assoc();
+}
+?>
 <div style="display:flex">
     <div class=" user_info container">
         <table class=" table table-bordered info_table col-md-4">
@@ -49,14 +24,12 @@ $user = $result->fetch_assoc();?>
             </tr>
         </table>
         <div class=" user_info">
-           <p><img class="loginInfoImg" src="<?php echo $user['profile_image']; ?>"></p>
+           <p><img class="loginInfoImg" src="<?php echo $user['profile_image']; ?>" alt="please add a profile picture"></p>
         </div>
     </div>
 </div>
-<!-- Access all file  -->
-<?php $userId = $_SESSION['user_id'];
- $profile = new ProfileUser;
-$result = $profile->user_file($conn, $userId);?>
+<?php $profile = new ProfileUser;
+$result = $profile->user_file($conn,$userId);?>
 <div class="container">
     <h2>User Files</h2>
     <table class="table table-bordered col-lg-6">
@@ -75,7 +48,7 @@ $result = $profile->user_file($conn, $userId);?>
                                     <div class="btn-group">
                                         <button onclick="demmo()" id="removeButton" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
                                         <div class="dropdown-menu pointer">
-                                            <a class="dropdown-item" href="add_profile.php?user_id=<?php echo $user['user_id']; ?>&profilePath=<?php echo $user['profile_image']; ?>">Add as profile</a>
+                                            <a class="dropdown-item" href="user_profile_update.php?user_id=<?php echo $user['user_id']; ?>&profilePath=<?php echo $user['profile_image']; ?>">Add as profile</a>
                                                <a  class="dropdown-item " type="button" data-toggle="modal" data-target="#deletemodal<?php echo $user['profile_id']; ?>">Delete</a>
                                         </div>
                                     </div>
@@ -111,6 +84,3 @@ $result = $profile->user_file($conn, $userId);?>
 </div>
 <?php include 'footer.php'; ?>
 <script src='./js/script.js'></script>
-
-
-

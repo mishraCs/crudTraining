@@ -1,15 +1,13 @@
-<?php
-include 'header.php'; 
+<?php include 'header.php'; 
 if (isset($_POST['submit'])) {
     $register = new AddUser;
     $registerMessage = $register->register_user($conn);
     if(isset($registerMessage)){
         ?> <div class="alert alert-danger" role="alert">
         <?php echo $registerMessage."<br>"; ?>
-      </div> <?php
+      </div><?php
     }
-}
-?>
+}?>
 <link rel="stylesheet" href="./css/style.css">
 <div class=" header_nav form_div col-md-4">
     <h2 class="hjk">Register Form</h2>
@@ -36,10 +34,8 @@ if (isset($_POST['submit'])) {
         <button class="btn btn-success" name="submit" type="submit">Register</button>
     </form>
 </div>
-
 <?php include 'footer.php'; ?>
-<script type="module">
-    //   password input 
+<script type="module"> //password input 
     $(".toggle-password").click(function() {
 
     $(this).toggleClass("fa-eye fa-eye-slash");

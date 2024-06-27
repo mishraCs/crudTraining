@@ -32,9 +32,8 @@ class ProfileUser{
         return $user;
     }
 
-    public function user_file($conn){
-        $user_id = $_SESSION['user_id'];
-        $stmt = "SELECT * FROM user_profile WHERE user_id='$user_id'";
+    public function user_file($conn, $userId){
+        $stmt = "SELECT * FROM user_profile WHERE user_id='$userId'";
         $result = $conn->query($stmt);
         return $result;
     }
@@ -44,9 +43,7 @@ class ProfileUser{
         $result = $conn->query($stmt);
     }
 
-    public function update_profile_picture($conn){
-        $profilePath = $_GET['profilePath'];
-        $userId = $_GET['user_id'];
+    public function login_user_profile_picture($conn, $profilePath, $userId){
         $stmt = "SELECT * FROM user_profile WHERE profile_image ='$profilePath'";
         $result = $conn->query($stmt);
         $profileRow = $result->fetch_assoc();
@@ -56,7 +53,27 @@ class ProfileUser{
             $stmt->bind_param("ssi", $profilePath, $profileId, $userId);
             if ($stmt->execute()){
                 $_SESSION['profile_image'] = $profilePath;
-                header('Location: dashboard.php');
+                header('Location:dashboard.php');
+                return "profile updated";
+                exit();
+            } else {
+                echo "Error: " . $stmt->error;
+            }
+        $stmt->close();
+        }
+    }
+
+    public function update_profile_picture($conn, $profilePath, $userId){
+        $stmt = "SELECT * FROM user_profile WHERE profile_image ='$profilePath'";
+        $result = $conn->query($stmt);
+        $profileRow = $result->fetch_assoc();
+        $profileId = $profileRow['profile_id'];
+        if (!empty($profilePath) && !empty($userId)) {
+            $stmt = $conn->prepare("UPDATE users SET profile_image = ?, profile_id = ? WHERE user_id = ?");
+            $stmt->bind_param("ssi", $profilePath, $profileId, $userId);
+            if ($stmt->execute()){
+                header('Location:view.php');
+                return "profile updated";
                 exit();
             } else {
                 echo "Error: " . $stmt->error;
@@ -149,14 +166,21 @@ class AddUser{
         $password = $_POST['password'];
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $target_dir = "uploads/";
-        $target_file = $target_dir . basename($_FILES["profile_image"]["name"]);
-        move_uploaded_file($_FILES["profile_image"]["tmp_name"], $target_file);
-        $sql = "INSERT INTO users (first_name, last_name, email, user_password, profile_image) VALUES ('$first_name', '$last_name', '$email', '$password', '$target_file')";
-        if ($conn->query($sql) === TRUE) {
-            header('Location: login.php');
-        } else {
-            return "Error: " . $sql . "<br>" . $conn->error;
+        $name = $_FILES["profile_image"];
+        $target_file = $target_dir . basename($name["name"]);
+        $fileExtension = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        if ($fileExtension === 'jpg' || $fileExtension === 'jpeg' || $fileExtension === 'png') {
+            move_uploaded_file($_FILES["profile_image"]["tmp_name"], $target_file);
+            $sql = "INSERT INTO users (first_name, last_name, email, user_password, profile_image) VALUES ('$first_name', '$last_name', '$email', '$password', '$target_file')";
+            if ($conn->query($sql) === TRUE) {
+                header('Location: login.php');
+            } else {
+                return "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }else{
+            return "Only JPEG and PNG files are allowed. File '$target_file' has an invalid extension.<br>";
         }
+        
     }
 }
 
@@ -171,12 +195,17 @@ class UpdataLoginUser{
     public function update_info_user($conn, $user_id){
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
-        // $email = $_POST['email'];
             if (!empty($_FILES["profile_image"]["name"])) {
                 $target_dir = "uploads/";
                 $target_file = $target_dir . basename($_FILES["profile_image"]["name"]);
-                move_uploaded_file($_FILES["profile_image"]["tmp_name"], $target_file);
-                $sql = "UPDATE users SET first_name='$first_name', last_name='$last_name', profile_image='$target_file' WHERE user_id='$user_id'";
+                $fileExtension = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                if($fileExtension == 'jpeg' || $fileExtension == 'jpg' || $fileExtension == 'avif'){
+                    move_uploaded_file($_FILES["profile_image"]["tmp_name"], $target_file);
+                    $sql = "UPDATE users SET first_name='$first_name', last_name='$last_name', profile_image='$target_file' WHERE user_id='$user_id'";
+                }else{
+                    return "Only JPEG and PNG files are allowed. File '$target_file' has an invalid extension.<br>";
+                }
+                
             } else {
                 $sql = "UPDATE users SET first_name='$first_name', last_name='$last_name' WHERE user_id='$user_id'";
             }
@@ -188,41 +217,64 @@ class UpdataLoginUser{
     }
 }
 
-class delete_user{
-    public function user_delete($conn){
-        $user_id = $_GET['user_id'];
-        $query = "delete from users where user_id = '$user_id'";
-        if(mysqli_query($conn, $query)){
-            echo  "Profile permanently deleted";
+class DeleteUser{
+    public function user_delete($conn) {
+        $userId = $_GET['user_id'];
+        $sql = "SELECT *FROM user_profile WHERE user_id = '$userId'";//user_profile
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $profileImage = $row['profile_image'];
+            if (file_exists($profileImage)) {
+                unlink($profileImage);
+            }
+        }
+        $sql = "SELECT profile_image FROM users WHERE user_id = '$userId'";// users
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $profileImage = $row['profile_image'];
+            if (file_exists($profileImage)) {
+                unlink($profileImage);
+            }
+        }
+        $query = "DELETE FROM users WHERE user_id = '$userId'";
+        if ($conn->query($query)) {
+            echo "Profile permanently deleted";
             return header('Location: home.php');
-        }else{
-            die('something went wrong');
+        } else {
+            die('Something went wrong');
         }
     }
 }
 
-class insert_multiple_file {
+class InsertMultipleImage {
     public function name_file($conn, $user_id, $userFile) {
         if(isset($_POST['submit'])){
-            foreach($userFile['name'] as $key => $name){
-                if($userFile['error'][$key] === 0){
+            foreach ($userFile['name'] as $key => $name) {
+                if ($userFile['error'][$key] === 0) {
                     $tmpName = $userFile['tmp_name'][$key];
-                    $fileName = time() . '_' . basename($name); 
-                    $upload_dir = 'uploads/' . $fileName;
-                    if(move_uploaded_file($tmpName, $upload_dir)){
-                        $stmt = $conn->prepare("INSERT INTO user_profile (profile_image, user_id) VALUES (?, ?)");
-                        $stmt->bind_param("si", $upload_dir, $user_id);
-                        if($stmt->execute()){
-                            echo $fileName . " uploaded successfully<br>";
+                    $fileExtension = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+                    if ($fileExtension === 'jpg' || $fileExtension === 'jpeg' || $fileExtension === 'png') {
+                        $fileName = time() . '_' . basename($name);
+                        $uploadDir = 'uploads/' . $fileName;
+                        if (move_uploaded_file($tmpName, $uploadDir)) {
+                            $stmt = $conn->prepare("INSERT INTO user_profile (profile_image, user_id) VALUES (?, ?)");
+                            $stmt->bind_param("si", $uploadDir, $user_id);
+                            if ($stmt->execute()) {
+                                echo $fileName . " uploaded successfully<br>";
+                            } else {
+                                echo "Error uploading file $fileName: " . $stmt->error . "<br>";
+                            }
+                            $stmt->close();
                         } else {
-                            echo "Error uploading file $fileName : " . $stmt->error . "<br>";
+                            echo "Error moving file $fileName<br>";
                         }
-                        $stmt->close();
                     } else {
-                        echo "Error moving file $fileName<br>";
+                        echo "Only JPEG and PNG files are allowed. File '$name' has an invalid extension.<br>";
                     }
                 } else {
-                    echo "Error uploading file $fileName<br>";
+                    echo "Error uploading file $name<br>";
                 }
             }
         }

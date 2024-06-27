@@ -7,12 +7,15 @@ if (!isset($_GET['user_id'])) {
 $user_id = $_GET['user_id'];
 $update = new UpdataLoginUser;
 $user = $update->select_user($conn, $user_id);
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    echo $update->update_info_user($conn, $user_id);
+    $updateMessage = $update->update_info_user($conn, $user_id);
+    if(isset($updateMessage)){
+        ?> <div class="alert alert-danger" role="alert">
+        <?php echo $updateMessage."<br>"; ?>
+      </div><?php
+    }
 }
 ?>
-
 <div class="form_div col-md-4">
     <h2>Update Profile</h2>
     <form class="form-group" method="post" enctype="multipart/form-data">
@@ -27,5 +30,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button class="btn btn-success" type="submit">Update</button>
     </form>
 </div>
-
 <?php include 'footer.php'; ?>

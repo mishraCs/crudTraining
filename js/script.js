@@ -102,11 +102,16 @@
 
       return returnvalue;
     }
-    const data = document.getElementById('data').innerHTML;
-    console.log(data);
-    if(data){
-        seterror("delete_profile_error", "Please add another profile image before delete");
-    }
+    window.onload = function() {
+        setTimeout(() => {
+            $( "#remove" ).hide();
+            // Redirect to the specified URL after 5 seconds
+            // window.location.href = "http://localhost/MyCode/CRUD/dashboard.php";
+        }, 7000);
+    };   
+    
+    
+
        
 
 
