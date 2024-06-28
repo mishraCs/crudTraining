@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+include 'helper/header.php';
 if (isset($_GET['profilePath'])) {
     $profilePath = $_GET['profilePath'];
     $userId = $_GET['user_id'];
@@ -8,6 +8,4 @@ if (isset($_GET['profilePath'])) {
     return "profile updated";
     exit();
 }
-die('user_profile');
-
 ?>

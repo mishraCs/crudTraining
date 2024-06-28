@@ -1,6 +1,6 @@
 <?php
 
-include 'header.php'; 
+include 'helper/header.php'; 
 if (isset($_SESSION['user_id'])) {
     header('Location: home.php');
     exit();
@@ -38,4 +38,4 @@ if(isset($_POST['submit'])){
         <button class="btn btn-primary" name="submit" type="submit">Login</button>
     </form>
 </div>
- <?php include 'footer.php';?>
+ <?php include 'helper/footer.php';?>

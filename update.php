@@ -1,5 +1,5 @@
 <?php
- include 'header.php';
+ include 'helper/header.php';
 if (!isset($_GET['user_id'])) {
     header('Location: login.php');
     exit();
@@ -25,9 +25,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input class="form-control" type="text" id="last_name" name="last_name" value="<?php echo $user['last_name']; ?>" required><br>
         <!-- <label for="email">Email:</label>
         <input class="form-control" type="email" id="email" name="email" value="<?php// echo $user['email']; ?>" required><br> -->
+        <div><img class="updateImg" src="<?php echo $user['profile_image']; ?>" alt="please add a profile picture"></div>
         <label for="profile_image">Profile Image:</label>
         <input class="form-control" type="file" id="profile_image" name="profile_image"><br>
         <button class="btn btn-success" type="submit">Update</button>
     </form>
 </div>
-<?php include 'footer.php'; ?>
+<?php include 'helper/footer.php'; ?>

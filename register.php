@@ -1,4 +1,4 @@
-<?php include 'header.php'; 
+<?php include 'helper/header.php'; 
 if (isset($_POST['submit'])) {
     $register = new AddUser;
     $registerMessage = $register->register_user($conn);
@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
         <button class="btn btn-success" name="submit" type="submit">Register</button>
     </form>
 </div>
-<?php include 'footer.php'; ?>
+<?php include 'helper/footer.php'; ?>
 <script type="module"> //password input 
     $(".toggle-password").click(function() {
 

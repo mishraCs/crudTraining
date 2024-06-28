@@ -1,4 +1,4 @@
-<?php include 'header.php';
+<?php include 'helper/header.php';
 if (!isset($_GET['user_id'])) {
     header('Location: login.php');
     exit();
@@ -82,5 +82,5 @@ $result = $profile->user_file($conn,$userId);?>
     </table>
     
 </div>
-<?php include 'footer.php'; ?>
+<?php include 'helper/footer.php'; ?>
 <script src='./js/script.js'></script>

@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+include 'helper/header.php';
 $userInfo = new ProfileUser;
 $user = $userInfo->current_user($conn);
 ?>
@@ -16,3 +16,4 @@ $user = $userInfo->current_user($conn);
     <div class="card">click me</div>
     <div class="card">click me</div>
 </div>
+<?php include 'helper/footer.php'; ?>

@@ -1,4 +1,4 @@
-<?php include 'header.php'; 
+<?php include 'helper/header.php'; 
 $limit =2; 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $startFrom = ($page-1) * $limit; 
@@ -81,5 +81,5 @@ $totalPages = ceil($totalRecords / $limit);?>
     </ul>
   </nav>  
 </div>
-<?php include 'footer.php'; ?>
+<?php include 'helper/footer.php'; ?>
 

@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+include 'helper/header.php';
 if (!isset($_GET['user_id']) || !isset($_GET['profilePath'])) {
     return 'I can\'t get any variable';
 }else{
