@@ -2,20 +2,23 @@
 class ProfileUser{
 
     public function sessionFile($conn, $profile_id){
-        $userId = $_SESSION['user_id'];
-       $sql = "select *from users where profile_id = '$profile_id'";
-       $result = $conn->query($sql);
-       if(mysqli_num_rows($result)>0){
-           $profileRow = $result->fetch_assoc();
-           $userCheck = $profileRow['profile_id'];
-           if($profile_id == $userCheck){
-               return "Please add another profile picture before deleted";
-           }else{
-            return false;
-           }
+        try {
+            $userId = $_SESSION['user_id'];
+            $sql = "select *from users where profile_id = '$profile_id'";
+            $result = $conn->query($sql);
+            if(mysqli_num_rows($result)>0){
+                $profileRow = $result->fetch_assoc();
+                $userCheck = $profileRow['profile_id'];
+                if($profile_id == $userCheck){
+                    return "Please add another profile picture before deleted";
+                }else{
+                 return false;
+                }
+             }
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
         }
     }
-
     public function chekuser($conn,$email) {
         $sql = "SELECT * FROM users WHERE email='$email'";
         $result = $conn->query($sql);
@@ -23,7 +26,6 @@ class ProfileUser{
             return "Choose another email! <br> This email already exist";
         }
     }
-
     public function current_user($conn){
         $user_id = $_SESSION['user_id'];
         $sql = "SELECT * FROM users WHERE user_id='$user_id'";
@@ -93,6 +95,9 @@ class VerifyUser {
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
         $_SESSION['user_id'] = $user['user_id'];
+        if($user['user_admin'] = 1){
+         $_SESSION['admin_id'] = $user['user_admin'];
+        }
         header('Location: dashboard.php');
         return 'I can not redirect';
     }else{
@@ -186,7 +191,7 @@ class AddUser{
 
 class UpdataLoginUser{
     public function select_user($conn, $user_id){
-        $sql = "SELECT * FROM users WHERE user_id='$user_id'";
+        $sql = "SELECT * FROM users WHERE user_id=$user_id";
         $result = $conn->query($sql);
         $user = $result->fetch_assoc();
         return $user;
@@ -195,25 +200,30 @@ class UpdataLoginUser{
     public function update_info_user($conn, $user_id){
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
-            if (!empty($_FILES["profile_image"]["name"])) {
-                $target_dir = "uploads/";
-                $target_file = $target_dir . basename($_FILES["profile_image"]["name"]);
-                $fileExtension = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        if (!empty($_FILES["profile_image"]["name"])) {
+            $target_dir = "uploads/";
+            $target_file = $target_dir . basename($_FILES["profile_image"]["name"]);
+            $fileExtension = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            try {
+                //code...
                 if($fileExtension == 'jpeg' || $fileExtension == 'jpg' || $fileExtension == 'avif'){
                     move_uploaded_file($_FILES["profile_image"]["tmp_name"], $target_file);
                     $sql = "UPDATE users SET first_name='$first_name', last_name='$last_name', profile_image='$target_file' WHERE user_id='$user_id'";
                 }else{
                     return "Only JPEG and PNG files are allowed. File '$target_file' has an invalid extension.<br>";
                 }
-                
-            } else {
-                $sql = "UPDATE users SET first_name='$first_name', last_name='$last_name' WHERE user_id='$user_id'";
+            } catch (\Throwable $th) {
+                //throw $th;
+                echo $th->getmessage();
             }
-                if ($conn->query($sql) === TRUE) {
-                    header('Location: home.php');
-                } else {
-                    echo "Error: " . $sql . "<br>" . $conn->error;
-                }
+        } else {
+            $sql = "UPDATE users SET first_name='$first_name', last_name='$last_name' WHERE user_id='$user_id'";
+        }
+        if ($conn->query($sql) === TRUE) {
+            header('Location: home.php');
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     }
 }
 
@@ -259,14 +269,19 @@ class InsertMultipleImage {
                         $fileName = time() . '_' . basename($name);
                         $uploadDir = 'uploads/' . $fileName;
                         if (move_uploaded_file($tmpName, $uploadDir)) {
-                            $stmt = $conn->prepare("INSERT INTO user_profile (profile_image, user_id) VALUES (?, ?)");
-                            $stmt->bind_param("si", $uploadDir, $user_id);
-                            if ($stmt->execute()) {
-                                echo $fileName . " uploaded successfully<br>";
-                            } else {
-                                echo "Error uploading file $fileName: " . $stmt->error . "<br>";
+                            try {
+                                //code...
+                                $stmt = $conn->prepare("INSERT INTO user_profile (profile_image, user_id) VALUES (?, ?)");
+                                $stmt->bind_param("si", $uploadDir, $user_id);
+                                if ($stmt->execute()) {
+                                    echo $fileName . " uploaded successfully<br>";
+                                } else {
+                                    echo "Error uploading file $fileName: " . $stmt->error . "<br>";
+                                }
+                                $stmt->close();
+                            } catch (\Throwable $th) {
+                                echo $th->getMessage();
                             }
-                            $stmt->close();
                         } else {
                             echo "Error moving file $fileName<br>";
                         }

@@ -21,6 +21,9 @@ a.header_link:hover {
     margin-right:auto;
     margin-left:auto;
 }
+.category{
+    margin-left:auto;
+}
 .user_div{
     float:right;
 }
@@ -63,6 +66,16 @@ a.header_link:hover {
     object-fit: cover;
     border-radius: 50%;
     object-position: center;
+}
+/* nested dropdown */
+.dropdown-submenu {
+position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+top: 0;
+left: 100%;
+margin-top: -1px;
 }
 .banner_img{
     width: 95%;
@@ -109,5 +122,6 @@ table{
 .info_table{
     text-align: left;
 }
+
 
 

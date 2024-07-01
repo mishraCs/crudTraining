@@ -1,20 +1,20 @@
 <?php 
-
 abstract class MakeTable{
-    abstract protected function createParentTable($conn, $parentTableName);
+    abstract public function createParentTable($conn, $parentTableName);
+    abstract public function createChildTable($conn, $tableName, $referenceTable);// cant use private access modifier
     public function __construct(){
         echo "createParentTable is running";
     }
 }
 
 class MakeNewTable extends MakeTable {
-    protected function createParentTable($conn, $parentTableName) {
+    public function createParentTable($conn, $parentTableName) {
         $parentTableName = preg_replace('/[^a-zA-Z0-9_]+/', '', $parentTableName); // Ensure table name is safe
         $sql = "CREATE TABLE IF NOT EXISTS $parentTableName (
             user_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
             user_name VARCHAR(35) NOT NULL,
             email VARCHAR(50) NOT NULL,
-            profile_picture VARCHAR(255) PRIMARY KEY AUTO_INCREMENT NOT NULL
+            profile_picture VARCHAR(255) PRIMARY KEY AUTO_INCREMENT NOT NULL,
             user_password VARCHAR(35) NOT NULL,
             reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         )";
@@ -25,13 +25,13 @@ class MakeNewTable extends MakeTable {
 }
 
 class CascadeTable extends MakeTable {
-    protected function createParentTable($conn, $tableName){
+   public function createChildTable($conn, $tableName, $referenceTable){
         $tableName = preg_replace('/[^a-za-z0-9_]+/', '', $tableName);
         $sql = "CREATE TABLE IF NOT EXISTS $tableName(
         profile_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
         profile_picture VARCHAR(255) NOT NULL,
         user_id INT() NOT NULL
-        FOREIGN KEY(user_id) REFERENCES ())";
+        FOREIGN KEY(user_id) REFERENCES $referenceTable(user_id) ON DELETE CASCADE)";
 
     }
 }

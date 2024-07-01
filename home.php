@@ -1,4 +1,9 @@
-<?php include 'helper/header.php'; 
+<?php
+include 'helper/header.php'; 
+if(isset($_SESSION['admin_id']) != 1){
+    header('location:login.php') ;
+    exit();
+}
 $limit =2; 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $startFrom = ($page-1) * $limit; 
@@ -8,6 +13,16 @@ $sqlTotal = "SELECT COUNT(*) FROM users";
 $resultTotal = $conn->query($sqlTotal);
 $totalRecords = $resultTotal->fetch_array()[0];
 $totalPages = ceil($totalRecords / $limit);?>
+ <div class="btn-group">
+  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categry</button>
+  <div class="dropdown-menu pointer">
+    <a class="dropdown-item" href="upload_category.php">Add Category</a>
+    <a class="dropdown-item" href="delete_category.php">Delete Category</a>
+    <a class="dropdown-item" href="upload_sub_category.php">Upload Subcategory</a>
+    <a class="dropdown-item" href="delete_subcategory.php">Delete Subcategory</a>
+
+  </div>
+</div>
 <div class="container">
   <h2>User List</h2>
   <table class="table table-bordered justify-content-center">
@@ -81,5 +96,7 @@ $totalPages = ceil($totalRecords / $limit);?>
     </ul>
   </nav>  
 </div>
-<?php include 'helper/footer.php'; ?>
+<?php include 'helper/footer.php';?>
+
+
 
