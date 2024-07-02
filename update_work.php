@@ -35,3 +35,26 @@ Abstract class: In php, an abstract class is a class that can't be instantiated 
 -An abstract class can have abstract methods which are methods declared without an implementation. Subclasses of the abstract class are required to implement these methods.
 
 Property overriding in php occurs when a child class difines a property with the same name as a property in its parent class. When this happens the property in the child class overrides the property in the parent class for instances of the child class.
+
+Static method can be called directly without creating an instance of the class first. static method can't instatiate by other class, because already its method and properties are public.
+
+A class have both static and not-static methods, A static method can be accessed from a method in the same class using the self keyword and double colon (::) .
+Static method can also be called from methods in other classes. To do this the static method should be public.
+To call a static method from a child class use the parent keyword inside the child class, here the static method can be public or protected.
+Static properties can be called without creating an instance of a class -> ClassName::$property;
+
+Interfaces allow you to specify whate methods a class should implement. Interfaces make it easy to use a variety of classes in the same way when one or more classes use the same interface, it is referred to as polymorphism. 
+
+Interface are similler to as abstract class.
+The difference berween interfaces and abstract classes are.
+Interfaces can't have properties while abstract classes can
+All interfaces methods must be public while abstract method is public or protected
+All methods in an interface are abstract so that they cannot implemented in code and the abstract keyword is not necessary.
+Class can implement an interface while inheriting from another class at the same time.
+A class that implements an interfaces must implement all of the interfaces methods as abstract class.
+
+Trait : php only support single inheritance, a child class can inherit only from one single parent.
+Traits are used to declare methods that can be used in multiple classes.
+Trait can have methods and abstract methods that can be used in multiple classes, and the methods can have any access modifier
+
+

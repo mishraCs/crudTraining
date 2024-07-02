@@ -1,4 +1,5 @@
 <?php
+ob_start();
 class ProfileUser{
 
     public function sessionFile($conn, $profile_id){
@@ -55,7 +56,7 @@ class ProfileUser{
             $stmt->bind_param("ssi", $profilePath, $profileId, $userId);
             if ($stmt->execute()){
                 $_SESSION['profile_image'] = $profilePath;
-                header('Location:dashboard.php');
+                header('Location: dashboard.php');
                 return "profile updated";
                 exit();
             } else {

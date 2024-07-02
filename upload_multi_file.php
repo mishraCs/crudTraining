@@ -1,4 +1,4 @@
-<?php include 'header.php';
+<?php include 'helper/header.php';
 if (!isset($_GET['user_id'])) {
     header('Location: login.php');
     exit();

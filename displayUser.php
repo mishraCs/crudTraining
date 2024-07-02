@@ -20,8 +20,7 @@ if ($result) {?>
 } else {
     echo "No users found in the database.";
 }
-// $tableUsers = "users"; below function have optional argument
-$result = $user->displayAllUser(); // by derived DisplayMembersConnectionModifiers class
+$result = $user->displayAllUser();
 if ($result) {?>
 <table>
     <tr>

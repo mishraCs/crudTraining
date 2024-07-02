@@ -2,6 +2,7 @@
  session_start();
  include 'db.php';
  include 'class_function.php';
+ include 'users.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +17,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    
+  <!-- chat -->
+  <script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6683fcb5eaf3bd8d4d172f61/1i1pp69gc';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
 </head>
 <body>
     <header>
@@ -48,7 +60,7 @@
                     <?php } ?>
                 </div>
                 <div class="category user_div dropdown">
-                  <button class="btn btn-default" type="button" data-toggle="dropdown">Tutorials
+                  <button class="btn btn-default" type="button" data-toggle="dropdown">Category
                       <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu">
@@ -70,7 +82,7 @@
                                               while($subCategory = mysqli_fetch_assoc($sub_result)) { ?>
                                                   <li><div style="display:flex">
                                                     <img class="header_user_image" src="<?php echo $subCategory['sub_category_image'] ?>" alt="">
-                                                    <a tabindex="-1" href="#"><?php echo $subCategory['sub_category_name'] ?></a></div></li>
+                                                    <a tabindex="-1" href="sub_category_view.php?subCategoryId=<?php echo $subCategory['sub_category_id']; ?>&category=<?php echo $category['category_name']; ?>"><?php echo $subCategory['sub_category_name'] ?></a></div></li>
                                               <?php }
                                           } ?>
                                       </ul>
@@ -112,6 +124,7 @@
 <script>
 $(document).ready(function(){
   $('.dropdown-submenu a.test').on("click", function(e){
+    $('.dropdown-submenu ul').hide();
     $(this).next('ul').toggle();
  
     e.stopPropagation();
@@ -119,3 +132,4 @@ $(document).ready(function(){
   });
 });
 </script>
+

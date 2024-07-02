@@ -6,8 +6,8 @@ if (!isset($_GET['user_id']) || !isset($_GET['profilePath'])) {
     $profilePath = $_GET['profilePath'];
     $userId = $_GET['user_id'];
     $user = new ProfileUser;
-    $user->login_user_profile_picture($conn, $profilePath, $userId);
-    return "Profile updated";
+    $data = $user->login_user_profile_picture($conn, $profilePath, $userId);
+    return $data;
 }
-
 ?>
+
