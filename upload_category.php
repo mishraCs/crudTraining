@@ -1,4 +1,6 @@
 <?php
+namespace users;
+
 include 'helper/header.php';
 
 if ($_SESSION['admin_id'] != 1) {

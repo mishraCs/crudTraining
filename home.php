@@ -19,7 +19,7 @@ $totalPages = ceil($totalRecords / $limit);?>
     <a class="dropdown-item" href="upload_category.php">Add Category</a>
     <a class="dropdown-item" href="delete_category.php">Delete Category</a>
     <a class="dropdown-item" href="upload_sub_category.php">Upload Subcategory</a>
-    <a class="dropdown-item" href="delete_subcategory.php">Delete Subcategory</a>
+    <!-- <a class="dropdown-item" href="delete_subcategory.php">Delete Subcategory</a> -->
 
   </div>
 </div>

@@ -1,22 +1,16 @@
 <?php
+namespace users;
 
 include 'helper/header.php';
 ob_start();
 if(isset($_POST['submit'])){
-       $categoryId = $_POST['category_select'];
-
-        
-       echo  $sql = "DELETE FROM category WHERE category_id = $categoryId"; 
-
-        $conn->query($sql);
+       $data = new DeCategory;
+       echo $data->deleteCategory();
         //header('Location:home.php?successfullydelete');
-
-        ?>
-
-        <script>
-
-            window.location.replace('home.php?msg=data have been deleted succesfully');
-        </script>
+    //     ?>
+       <script>
+    //         window.location.replace('home.php?msg=data have been deleted succesfully');
+    //     </script>
     <?PHP }
 ?>
 <div class="form_div col-md-4">

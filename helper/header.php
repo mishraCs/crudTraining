@@ -1,8 +1,10 @@
 <?php 
+ namespace profile;
  session_start();
  include 'db.php';
  include 'class_function.php';
  include 'users.php';
+ include 'sidebar.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +17,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">   <!-- bootstrap cdn -->
     <!-- nested dropdwon -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"rel="stylesheet"/>
+<!-- sidebar link -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <!-- chat -->
@@ -36,7 +40,7 @@ s0.parentNode.insertBefore(s1,s0);
             <nav class="header_element">
                 <a class="header_link" href="#">
                   <?php $date1 = date_create("2024-06-04");
-                    $date2 = new DateTime();
+                    $date2 = date_create("2024-06-04");
                     $diff = date_diff($date1, $date2);
                     echo "Twd: " . ltrim($diff->format("%R%a"), '+');?>
                 </a>

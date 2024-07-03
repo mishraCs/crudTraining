@@ -1,4 +1,5 @@
 <?php
+namespace profile;
 ob_start();
 class ProfileUser{
 
@@ -295,6 +296,13 @@ class InsertMultipleImage {
             }
         }
         return "File upload complete";
+    }
+}
+class likeCategory{
+    public function selectCustomerMostVisit($conn) {
+        $sql = "SELECT *FROM category";
+        $result = $conn->query($sql);
+        return $result;
     }
 }
 

@@ -1,4 +1,6 @@
 <?php 
+namespace users;
+
 abstract class MakeTable {
     abstract public function createParentTable($conn, $parentTableName);
     abstract public function createChildTable($conn, $tableName, $referenceTable); // cant use private access modifier
@@ -124,6 +126,14 @@ abstract class CreateConnection{
     }
 
 }
+class DeCategory extends CreateConnection {
+    public function deleteCategory(){
+        $categoryId = $_POST['category_select'];
+       echo  $sql = "DELETE FROM category WHERE category_id = $categoryId"; 
+        $this->conn->query($sql);
+        header('Location:home.php?successfullydelete');
+    }
+}
 interface category{
   public function selectCategrory();
 }
@@ -235,4 +245,5 @@ Trait Upload{
 class CategoryInsert extends CreateConnection{
     use Upload;
 }
+
 ?>
