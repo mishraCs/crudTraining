@@ -57,4 +57,46 @@ Trait : php only support single inheritance, a child class can inherit only from
 Traits are used to declare methods that can be used in multiple classes.
 Trait can have methods and abstract methods that can be used in multiple classes, and the methods can have any access modifier
 
+Namespace are qualifiers that solve two different problems,
+1. They allow for better organization by gouping classes that work together to perform a task.
+2. They allow the same name to be used for more than one class.
+
+Namespaces are declared at the beginning of a file using the namespace keyword -> namespace Html;
+Any code that follows a namespace declaration is operating that belong to the namespace can be instantiated without any qualifiers
+
+To access classes form outside a namespace the class needs to have the namespace attached to it.
+*It can be useful to give a message or class an alias to make it easier to write this is done with the use keyword.
+
+
+Iterable : An iterable is any value which can be looped through with a foreach() loop.
+The iterable keyword can be used as a data type of a function argument or as the return type of a function.
+
+All array are iterables so any array can be used as an argument for a function that requires an iterable.
+
+cURL : cURL is a library that allow you to connect and communicate to many different type of servers with many different type of protocols. It deals with url, To use cURL in php you need to ensure that php is compiled with cURL support.
+The cURL project has two products, 1. libcurl 2. curl.
+cURL : A command line tool for getting or sending files using URL syntax. phpinfo() function will display in its output. 
+
+Exam : The simplest and most common request/operation made using HTTP is to get a URL. The client issues a GET  request to the server and receives the document it asked it.
+
+cURL basic function :
+curl_init() -> will initialize a new session and return a cURL handle.
+curl_exec($ch) -> Its purpose is simply to execute the predefined curl session (given by $ch);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1) -> return page contents, if set 0 then no ouptput will be returned.
+curl_setopt($ch, CURLOPT_URL, $URL) -> pass url as a parameter. This is your target server website address. This is the url you want to get from the internet.
+curl_close($ch) -> close curl resources and free-up system resources.
+<?php
+// create a new cURL resource
+$ch = curl_init();
+
+// set URL and other appropriate options
+curl_setopt($ch, CURLOPT_URL, "http://www.example.com/");
+curl_setopt($ch, CURLOPT_HEADER, 0);
+
+// grab URL and pass it to the browser
+curl_exec($ch);
+
+// close cURL resource, and free up system resources
+curl_close($ch);
+?>
 

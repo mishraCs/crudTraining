@@ -14,8 +14,9 @@ if (isset($_POST['submit'])){
         <label>Select Category</label><br>
         <select name="category_select">
             <?php $data = new ThingsCategory;
+            echo $data->text();
                 $result = $data->selectCategrory();
-            while($category = mysqli_fetch_assoc($result)){?><br>
+            while($category = $result->fetch_assoc()){?><br>
             <option value="<?php echo $category['category_id'] ?>"><?php echo $category['category_name'] ?></option>
             <?php }?>
         </select><br>
@@ -28,3 +29,4 @@ if (isset($_POST['submit'])){
         <button class="btn btn-success" name="submit" type="submit">Submit</button>
     </form>
 </div>
+<?php include 'helper/footer.php'; ?>

@@ -1,5 +1,4 @@
 <?php
-namespace profile;
 ob_start();
 class ProfileUser{
 

@@ -1,5 +1,4 @@
 <?php 
-namespace users;
 
 abstract class MakeTable {
     abstract public function createParentTable($conn, $parentTableName);
@@ -137,11 +136,13 @@ class DeCategory extends CreateConnection {
 interface category{
   public function selectCategrory();
 }
-class ThingsCategory extends CreateConnection implements category{
+class ThingsCategory extends CreateConnection {
+    public function text(){
+        return "hello";
+    }
     public function selectCategrory(){
         try {
-            
-            $sql = "SELECT *FROM category";
+            $sql = "SELECT * FROM category";
             $result = $this->conn->query($sql);
             return $result;
         } catch (\Throwable $th) {
@@ -245,5 +246,5 @@ Trait Upload{
 class CategoryInsert extends CreateConnection{
     use Upload;
 }
-
 ?>
+
