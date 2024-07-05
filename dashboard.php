@@ -66,47 +66,53 @@ $result = $profile->user_file($conn, $userId);?>
             </tr>
         </thead>
         <tbody>
-            <?php if ($result->num_rows > 0) {
-                    while($user = $result->fetch_assoc()) {?>
-                            <tr>
-                                <td><img src="<?php echo $user['profile_image']; ?>" width="100"></td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button onclick="demmo()" id="removeButton" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
-                                        <div class="dropdown-menu pointer">
-                                            <a class="dropdown-item" href="add_profile.php?user_id=<?php echo $user['user_id']; ?>&profilePath=<?php echo $user['profile_image']; ?>">Add as profile</a>
-                                               <a  class="dropdown-item " type="button" data-toggle="modal" data-target="#deletemodal<?php echo $user['profile_id']; ?>">Delete</a>
-                                        </div>
+            <?php 
+            if ($result->num_rows > 0) {
+                while ($user = $result->fetch_assoc()) {
+                    $images = explode(',', $user['profile_image']);
+                    foreach ($images as $image) {
+            ?>
+                        <tr>
+                            <td><img src="<?php echo $image; ?>" width="100"></td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
+                                    <div class="dropdown-menu pointer">
+                                        <a class="dropdown-item" href="add_profile.php?user_id=<?php echo $user['user_id']; ?>&profilePath=<?php echo $image; ?>">Add as profile</a>
+                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deletemodal_<?php echo $user['profile_id']; ?>">Delete</a>
                                     </div>
                                     <!-- Modal delete -->
-                                    <div class="modal fade" id="deletemodal<?php echo $user['profile_id']; ?>" tabindex="-1" role="dialog"   aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="deletemodal_<?php echo $user['profile_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span></button>
-                                                 </div>
-                                                    <div class="modal-body">
-                                                        Please confirm!! are you want delete your profile.
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                                        <button type="button" class="btn btn-primary" onclick="window.location.href='dashboard.php?profile_id=<?php echo $user['profile_id']; ?>'" >Yes</button>
-                                                    </div>
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to delete this profile image?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                    <a class="btn btn-primary" href="dashboard.php?profile_id=<?php echo $user['profile_id']; ?>">Yes</a>
                                                 </div>
                                             </div>
+                                        </div>
                                     </div>
-                                    <!-- Modal delete -->  
-                                </td>
-                            </tr>
-                 <?php }
-                } else {
-                    echo "<tr><td colspan='2'>No users found.</td></tr>";
-                }?>
+                                    <!-- Modal delete -->
+                                </div>
+                            </td>
+                        </tr>
+                    <?php } // end foreach
+                } // end while
+            } else {
+                echo "<tr><td colspan='2'>No users found.</td></tr>";
+            }
+            ?>
         </tbody>
     </table>
-    
 </div>
 <?php include 'helper/footer.php'; ?>
 <script src='./js/script.js'></script>
