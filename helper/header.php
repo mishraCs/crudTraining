@@ -1,10 +1,8 @@
 <?php 
- namespace profile;
  session_start();
  include 'db.php';
- include 'class_function.php';
- include 'users.php';
- include 'sidebar.php';
+ include 'Controller/class_function.php';
+ include 'Controller/users.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,25 +16,67 @@
     <!-- nested dropdwon -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"rel="stylesheet"/>
+<!--localscript  -->
+<script src="../js/script.js"></script>
 <!-- sidebar link -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <!-- chat -->
-  <script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6683fcb5eaf3bd8d4d172f61/1i1pp69gc';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
+<script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/6683fcb5eaf3bd8d4d172f61/1i1pp69gc';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
 </script>
 </head>
 <body>
-    <header>
+<!-- Modal logout -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Wait!! are you want logout yourself.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <a type="button" class="btn btn-primary" href="logout.php" >Yes</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal logout -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>  <!-- bootstrap cdn -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script> 
+<script>
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $('.dropdown-submenu ul').hide();
+    $(this).next('ul').toggle();
+ 
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+</script>
+<body>
+  <?php include 'helper/sidebar.php'; ?>
+  <div class="home_content">
+   <header>
         <div class="header_nav">
+        <!-- <p id="temp"></p> -->
+        <a id="temp" class="header_link" href="#"></a>
             <nav class="header_element">
                 <a class="header_link" href="#">
                   <?php $date1 = date_create("2024-06-04");
@@ -54,7 +94,7 @@ s0.parentNode.insertBefore(s1,s0);
                     <div class="btn-group">
                       <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
                 <?php endif; ?>
-                
+
                 <div class="user_div">
                     <?php if (isset($_SESSION['user_id'])){
                         $header_user = new ProfileUser;
@@ -99,41 +139,3 @@ s0.parentNode.insertBefore(s1,s0);
             </nav>
         </div>
     </header>
-<hr>
-<!-- Modal logout -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Wait!! are you want logout yourself.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-        <a type="button" class="btn btn-primary" href="logout.php" >Yes</a>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal logout -->
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>  <!-- bootstrap cdn -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script> 
-<script>
-$(document).ready(function(){
-  $('.dropdown-submenu a.test').on("click", function(e){
-    $('.dropdown-submenu ul').hide();
-    $(this).next('ul').toggle();
- 
-    e.stopPropagation();
-    e.preventDefault();
-  });
-});
-</script>
-
