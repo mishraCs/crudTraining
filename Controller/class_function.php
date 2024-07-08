@@ -2,21 +2,19 @@
 ob_start();
 class ProfileUser{
 
-    public function sessionFile($conn, $profile_id){
+    public function sessionFile($conn, $profile_id, $Image){
         try {
-            $userId = $_SESSION['user_id'];
-            $sql = "select *from users where profile_id = '$profile_id'";
-            $result = $conn->query($sql);
-            if(mysqli_num_rows($result)>0){
-                $profileRow = $result->fetch_assoc();
-                $userCheck = $profileRow['profile_id'];
-                if($profile_id == $userCheck){
-                    return "Please add another profile picture before deleted";
+                $userId = $_SESSION['user_id'];
+                // echo $Image; exit();
+                $sql = "select * from users where profile_image = '$Image'";
+                $result = $conn->query($sql);
+                if(mysqli_num_rows($result)>0){
+                        return "Please add another profile picture before deleted";
                 }else{
-                 return false;
+                    return "please delete";
                 }
-             }
-        } catch (\Throwable $th) {
+            }
+            catch (\Throwable $th) {
             echo $th->getMessage();
         }
     }
@@ -46,23 +44,17 @@ class ProfileUser{
         $result = $conn->query($stmt);
     }
 
-    public function login_user_profile_picture($conn, $profilePath, $userId){
-        $stmt = "SELECT * FROM user_profile WHERE profile_image ='$profilePath'";
-        $result = $conn->query($stmt);
-        $profileRow = $result->fetch_assoc();
-        $profileId = $profileRow['profile_id'];
-        if (!empty($profilePath) && !empty($userId)) {
-            $stmt = $conn->prepare("UPDATE users SET profile_image = ?, profile_id = ? WHERE user_id = ?");
-            $stmt->bind_param("ssi", $profilePath, $profileId, $userId);
-            if ($stmt->execute()){
-                $_SESSION['profile_image'] = $profilePath;
-                header('Location: dashboard.php');
-                return "profile updated";
-                exit();
-            } else {
-                echo "Error: " . $stmt->error;
+    public function login_user_profile_picture($conn, $profilePath, $profileId, $userId){
+        if (!empty($profilePath)){
+            try {
+                $sql = "UPDATE users SET profile_image ='$profilePath', profile_id ='$profileId' WHERE user_id = '$userId' ";
+                $conn->query($sql);
+               return  header('Location:dashboard.php');
+                return "Profile updated";
+            } catch (\Throwable $th) {
+                //throw $th;
+                return $th->getmessage();
             }
-        $stmt->close();
         }
     }
 
@@ -98,6 +90,8 @@ class VerifyUser {
         $_SESSION['user_id'] = $user['user_id'];
         if($user['user_admin'] = 1){
          $_SESSION['admin_id'] = $user['user_admin'];
+         $_SESSION['first_name'] = $user['first_name'];
+         $_SESSION['user_id'] = $user['user_id'];
         }
         header('Location: dashboard.php');
         return 'I can not redirect';
@@ -260,7 +254,7 @@ class DeleteUser{
 }
 
 class InsertMultipleImage {
-    public function name_file($conn, $user_id, $userFile) {
+    public function name_fil($conn, $user_id, $userFile) {
         if(isset($_POST['submit'])){
             foreach ($userFile['name'] as $key => $name) {
                 if ($userFile['error'][$key] === 0) {
@@ -296,6 +290,51 @@ class InsertMultipleImage {
         }
         return "File upload complete";
     }
+    public function name_file($conn, $user_id, $userFile) {
+        if(isset($_POST['submit'])){
+            $uploadedFiles = [];
+            foreach ($userFile['name'] as $key => $name) {
+                if ($userFile['error'][$key] === 0) {
+                    $tmpName = $userFile['tmp_name'][$key];
+                    $fileExtension = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+                    if ($fileExtension === 'jpg' || $fileExtension === 'jpeg' || $fileExtension === 'png' || $fileExtension === 'avif') {
+                        $fileName = time() . '_' . basename($name);
+                        $uploadDir = 'uploads/' . $fileName;
+                        if (move_uploaded_file($tmpName, $uploadDir)) {
+                            $uploadedFiles[] = $uploadDir;
+                        } else {
+                            echo "Error moving file $fileName<br>";
+                        }
+                    } else {
+                        echo "Only JPEG and PNG files are allowed. File '$name' has an invalid extension.<br>";
+                    }
+                } else {
+                    echo "Error uploading file $name<br>";
+                }
+            }
+    
+            if (!empty($uploadedFiles)) {
+                print_r($uploadedFiles);
+                $filePaths = implode(',', $uploadedFiles);
+                try {
+                    $stmt = $conn->prepare("INSERT INTO user_profile (profile_image, user_id) VALUES (?, ?)");
+                    $stmt->bind_param("si", $filePaths, $user_id);
+                    if ($stmt->execute()) {
+                        echo "Files uploaded successfully<br>";
+                    } else {
+                        echo "Error uploading files: " . $stmt->error . "<br>";
+                    }
+                    $stmt->close();
+                } catch (\Throwable $th) {
+                    echo $th->getMessage();
+                }
+            }
+        }
+        return "File upload complete";
+    }
+    
+    
+    
 }
 class likeCategory{
     public function selectCustomerMostVisit($conn) {

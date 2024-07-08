@@ -171,6 +171,8 @@ class UploadSubCategory extends CreateConnection{
     public static function subCategoryInsert($conn){ // here pass argument $conn beacuse it can't access $this that is a object
         $sub_categoryName = htmlspecialchars($_POST['sub_category_name']);
         $sub_categoryImage = $_FILES['sub_category_image'];
+        $sub_category_price = $_POST['sub_category_price'];
+        $sub_category_quantity = $_POST['sub_category_quantity'];
         $sub_categoryDescription = htmlspecialchars($_POST['sub_category_description']);
         $category_select = $_POST['category_select'];
         if (!empty($sub_categoryImage['name'])) {
@@ -180,7 +182,7 @@ class UploadSubCategory extends CreateConnection{
             try {
                 if (in_array($fileExtension, ['jpeg', 'jpg', 'avif', 'png', 'webp'])) {
                     if (move_uploaded_file($sub_categoryImage['tmp_name'], $sub_categoryPathName)) {
-                        $sql = "INSERT INTO sub_category (sub_category_name, sub_category_image, category_id, sub_category_description) VALUES ('$sub_categoryName', '$sub_categoryPathName', $category_select, '$sub_categoryDescription')";
+                        $sql = "INSERT INTO sub_category (sub_category_name, sub_category_image, category_id, sub_category_description, sub_category_price, sub_category_quantity) VALUES ('$sub_categoryName', '$sub_categoryPathName', $category_select, '$sub_categoryDescription', '$sub_category_price', '$sub_category_quantity')";
                         $conn->query($sql);
                        return   "sub_Category added successfully.";
                     } else {

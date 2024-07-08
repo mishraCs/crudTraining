@@ -1,34 +1,27 @@
 <?php
- include 'helper/header.php';
+include 'helper/header.php';
  if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
- if(isset($_GET['profile_id'])){
+if(!empty($_GET['profile_id'])){
     $profile_id = $_GET['profile_id'];
+    $Image = $_GET['Image'];
     $result = new ProfileUser;
-    $data = $result->sessionFile($conn, $profile_id);
+    $data = $result->sessionFile($conn, $profile_id, $Image);
         if(isset($data)){?>
-        <div id="remove" class="alert alert-danger" role="alert">
-            <?php echo "<div id='data' class='form_error'>". $data ."</div>"?>
-        </div>
-<?php }else{
-     $stmt = "SELECT * FROM user_profile WHERE profile_id = '$profile_id'";
-     $result = $conn->query($stmt);
-     $row = $result->fetch_assoc();
-     if(unlink($row['profile_image'])){
-         echo "profile deleted";
-     }else{
-         echo("I can't delete this profile");
-     }
-     $stmt = "DELETE FROM user_profile WHERE profile_id = '$profile_id' ";
-     if(mysqli_query($conn, $stmt)){
-         echo "all related data deleted";
-         header('Location: dashboard.php');
-     }else{
-         echo('I cant delete data');
-     }
-}
+            <div id="remove" class="alert alert-danger" role="alert">
+                <?php echo "<div id='data' class='form_error'>". $data ."</div>"?>
+            </div> <?php
+        }else{
+            $Image = $_GET['Image'];
+            $sql = "SELECT * FROM user_profile WHERE profile_id = '$profile_id'";
+            if($conn->query($sql) === true){
+                echo "The profile deleted";exit();
+            }else{
+                echo "profile deletion failed";
+            }
+        }
 }
 $user_id = $_SESSION['user_id'];
 $sql = "SELECT * FROM users WHERE user_id='$user_id'";
@@ -54,7 +47,7 @@ $user = $result->fetch_assoc();?>
 </div>
 <!-- Access all file  -->
 <?php $userId = $_SESSION['user_id'];
- $profile = new ProfileUser;
+$profile = new ProfileUser;
 $result = $profile->user_file($conn, $userId);?>
 <div class="container">
     <h2>User Files</h2>
@@ -78,11 +71,14 @@ $result = $profile->user_file($conn, $userId);?>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
                                     <div class="dropdown-menu pointer">
-                                        <a class="dropdown-item" href="add_profile.php?user_id=<?php echo $user['user_id']; ?>&profilePath=<?php echo $image; ?>">Add as profile</a>
-                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deletemodal_<?php echo $user['profile_id']; ?>">Delete</a>
+                                        <a class="dropdown-item" href="add_profile.php?profilePath=<?php echo  $image; ?>&profile_id=<?php echo $user['profile_id']; ?>&user_id=<?php echo $user['user_id']; ?>">Add as profile</a>
+                                        <a class="dropdown-item" href="dashboard.php?profile_id=<?php echo $user['profile_id']; ?>&Image=<?php echo $image; ?>" >Delete</a>
+                                       <!-- data-toggle="modal" data-target="#deletemodal_<?php //echo $user['profile_id']; ?> -->
                                     </div>
-                                    <!-- Modal delete -->
-                                    <div class="modal fade" id="deletemodal_<?php echo $user['profile_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    
+                                </div>
+                                 <!-- Modal delete -->
+                                 <div class="modal fade" id="deletemodal_<?php echo $user['profile_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -96,13 +92,12 @@ $result = $profile->user_file($conn, $userId);?>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                                    <a class="btn btn-primary" href="dashboard.php?profile_id=<?php echo $user['profile_id']; ?>">Yes</a>
+                                                    <a class="btn btn-primary" href="dashboard.php?profile_id=<?php echo $user['profile_id']; ?>&Image=<?php echo $image; ?>">Yes</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- Modal delete -->
-                                </div>
                             </td>
                         </tr>
                     <?php } // end foreach

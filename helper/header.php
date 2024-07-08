@@ -1,4 +1,5 @@
 <?php 
+ ob_start();
  session_start();
  include 'db.php';
  include 'Controller/class_function.php';
@@ -76,11 +77,11 @@ $(document).ready(function(){
    <header>
         <div class="header_nav">
         <!-- <p id="temp"></p> -->
-        <a id="temp" class="header_link" href="#"></a>
-            <nav class="header_element">
+        <nav class="header_element">
+              <a id="temp" class="header_link" href="#"></a>
                 <a class="header_link" href="#">
                   <?php $date1 = date_create("2024-06-04");
-                    $date2 = date_create("2024-06-04");
+                    $date2 = new DateTime();
                     $diff = date_diff($date1, $date2);
                     echo "Twd: " . ltrim($diff->format("%R%a"), '+');?>
                 </a>
@@ -92,7 +93,7 @@ $(document).ready(function(){
                     <a class="header_link" href="register.php">Register</a>
                     <a class="header_link" href="login.php">Login</a>
                     <div class="btn-group">
-                      <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
+                      <!-- <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button> -->
                 <?php endif; ?>
 
                 <div class="user_div">

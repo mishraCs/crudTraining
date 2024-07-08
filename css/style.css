@@ -47,10 +47,17 @@ a.header_link:hover {
     margin-right:20px;
     border-radius:50%;
 }
-.user_info{
+.img_user_info{
     margin-left:10px;
     margin-right:10px;
     display: flex;
+    flex-direction: column;
+}
+.col_div {
+  display: flex;
+  flex-direction: row; /* Align buttons horizontally */
+  gap: 10px; /* Optional: Space between buttons */
+  margin-top: 10px; /* Optional: Space above the buttons */
 }
 .loginInfoImg{
     width:280px;

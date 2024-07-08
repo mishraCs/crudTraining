@@ -26,6 +26,10 @@ if (isset($_POST['submit'])){
         <input class="form-control" type="file" id="sub_category_image" name="sub_category_image" required><br>
         <label>Subcategory Description</label><br>
         <textarea class="form-control" name="sub_category_description" id="sub_category_text"></textarea><br>
+        <label>Price</label><br>
+        <input class="form-control" type="number" name ="sub_category_price"><br>
+        <label>Quantity Available</label><br>
+        <input class="form-control" type="number" name="sub_category_quantity"><br>
         <button class="btn btn-success" name="submit" type="submit">Submit</button>
     </form>
 </div>

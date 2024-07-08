@@ -1,11 +1,15 @@
 <?php
 include 'helper/header.php';
-$userInfo = new ProfileUser;
-$user = $userInfo->current_user($conn);
+if(isset($_SESSION['admin_id']) != 1){
+  header('location:login.php') ;
+  exit();
+}
+// $userInfo = new ProfileUser;
+// $user = $userInfo->current_user($conn);
 ?>
 <link rel="stylesheet" href="./css/index.css">
 <div class="about_div">
-  <img class="banner_img" src="<?php echo $user['profile_image']; ?>">
+  <img class="banner_img" src="uploads/1719395387_cat.avif">
   <div class="img_text">
     <p>Specific Image</p>
   </div>
