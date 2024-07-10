@@ -1,4 +1,6 @@
 <?php
+$urlValue = $_SERVER['PHP_SELF'];
+die($urlValue);
 include 'helper/header.php'; 
 if(isset($_SESSION['admin_id']) != 1){
     header('location:login.php') ;

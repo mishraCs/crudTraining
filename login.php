@@ -28,7 +28,7 @@ if(isset($_POST['submit'])){
 }
 
 ?>
-<div class=" form_div col-md-4">
+<div class=" form_div ">
     <h2>Login Form</h2>
     <form class="form-group" method="post">
         <label for="email">Email:</label>

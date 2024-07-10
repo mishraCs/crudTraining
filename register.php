@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
     }
 }?>
 <link rel="stylesheet" href="./css/style.css">
-<div class=" header_nav form_div col-md-4">
+<div class=" header_nav form_div">
     <h2 class="hjk">Register Form</h2>
     <form class="form-group" method="post" name="myForm" onsubmit=" return validateform()" enctype="multipart/form-data">
         <div id = "name" ><label>First Name:</label><br><span class="form_error"></span>
@@ -35,6 +35,7 @@ if (isset($_POST['submit'])) {
     </form>
 </div>
 <?php include 'helper/footer.php'; ?>
+
 <script type="module"> //password input 
     $(".toggle-password").click(function() {
 
@@ -48,3 +49,4 @@ if (isset($_POST['submit'])) {
     });
 </script>
 <script src="./js/script.js"></script> 
+

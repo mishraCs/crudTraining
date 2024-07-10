@@ -1,9 +1,11 @@
 <div class="sidebar">
       <div class="logo_content">
         <div class="logo">
-          <i class="bx bxl-javascript"></i>
+          <!-- <i class="bx bxl-javascript"></i> -->
+          <!-- <i class="bx bxl-facebook-square"></i> -->
+          <i class="bx bxs-user"></i>
           <div class="logo_name">
-            CodingLab
+           MishraPhp
           </div>
         </div>
         <i class="bx bx-menu" id="btn"></i>
@@ -11,18 +13,22 @@
       <ul class="nav_list">
         <li>
           <i class="bx bx-search"></i>
-          <input placeholder="Search..." />
-          <span class="tooltip">Search</span>
-        </li>
-        <li>
-          <a href="#">
+          <input name="sideCategorySearch" placeholder="Search..." value="" onkeyup="showCategory(this.value)"/>
+          <span class="tooltip">Search</span></li>
+        <!-- </li id="livesearch">
+        xccbf
+        <li> -->
+          <div id="livesearch">
+          </div>
+          <li>
+          <a href="./dashboard.php">
             <i class="bx bx-grid-alt"></i>
             <span class="links_name">Dashboard</span>
           </a>
           <span class="tooltip">Dashboard</span>
         </li>
         <li>
-          <a href="#">
+          <a href="index.php">
             <i class="bx bx-user"></i>
             <span class="links_name">User</span>
           </a>

@@ -20,6 +20,7 @@ a.header_link:hover {
 .form_div{
     margin-right:auto;
     margin-left:auto;
+    width:500px;
 }
 .category{
     margin-left:auto;
@@ -124,9 +125,9 @@ margin-top: -1px;
 .dropdown-menu.pointer.show {
     cursor: pointer;
 }
-.hjk{
+/* .hjk{
     color: red;
-}
+} */
 table{
     text-align: center;
 }
@@ -462,3 +463,10 @@ body {
   left: 240px;
 }
 /* sidebar css */
+/* searchbar */
+#livesearch{
+  border-radius: 12px;
+}
+.dropdown-item{
+  background-color: black;
+}

@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD Operation</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">   <!-- bootstrap cdn -->
     <!-- nested dropdwon -->
@@ -60,7 +61,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>  <!-- bootstrap cdn -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script> 
-<script>
+<script> // category
 $(document).ready(function(){
   $('.dropdown-submenu a.test').on("click", function(e){
     $('.dropdown-submenu ul').hide();
@@ -78,12 +79,12 @@ $(document).ready(function(){
         <div class="header_nav">
         <!-- <p id="temp"></p> -->
         <nav class="header_element">
-              <a id="temp" class="header_link" href="#"></a>
+              <!-- <a id="temp" class="header_link" href="#"></a> -->
                 <a class="header_link" href="#">
                   <?php $date1 = date_create("2024-06-04");
                     $date2 = new DateTime();
                     $diff = date_diff($date1, $date2);
-                    echo "Twd: " . ltrim($diff->format("%R%a"), '+');?>
+                  //  echo "Twd: " . ltrim($diff->format("%R%a"), '+');?>
                 </a>
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <a class="header_link" href="home.php">Home</a>
@@ -93,13 +94,12 @@ $(document).ready(function(){
                     <a class="header_link" href="register.php">Register</a>
                     <a class="header_link" href="login.php">Login</a>
                     <div class="btn-group">
-                      <!-- <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button> -->
                 <?php endif; ?>
-
                 <div class="user_div">
                     <?php if (isset($_SESSION['user_id'])){
                         $header_user = new ProfileUser;
                         $row = $header_user->current_user($conn);?>
+                        <img onclick="window.location.href = 'dashboard.php' " class="header_user_image" src="./File/myCart.jpeg" alt="Cart">
                         <a class="header_link" href="dashboard.php"><?php echo $row['first_name']; ?></a>
                         <img onclick="window.location.href = 'dashboard.php' " class="header_user_image" src="<?php echo $row['profile_image']; ?>">
                     <?php } ?>
