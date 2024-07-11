@@ -1,5 +1,6 @@
 <?php
-if($_SERVER['PHP_SELF'] === "http://localhost/MyCode/CRUD/home.php"){?>
+$urlHome = $_SERVER['PHP_SELF'];
+if(strpos($urlHome, "home.php")){?>
     <link rel="stylesheet" href="./css/footer.css"><?php
     $sql = "SELECT * FROM users ORDER BY user_id DESC LIMIT 1";
     $result = $conn->query($sql);
@@ -16,8 +17,9 @@ if($_SERVER['PHP_SELF'] === "http://localhost/MyCode/CRUD/home.php"){?>
     </body>
     </html>
 <?php }else{
- die("You can't add this file for particular url");
+ echo "You can't access this footer";
 }
 ?>
+
 
 

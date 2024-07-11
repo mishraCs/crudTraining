@@ -1,6 +1,7 @@
 body{
     margin:0px;
 }
+
 .header_element{
     margin-top: 15px;
     margin-bottom: 15px;
@@ -56,9 +57,9 @@ a.header_link:hover {
 }
 .col_div {
   display: flex;
-  flex-direction: row; /* Align buttons horizontally */
-  gap: 10px; /* Optional: Space between buttons */
-  margin-top: 10px; /* Optional: Space above the buttons */
+  flex-direction: row;
+  gap: 10px; 
+  margin-top: 10px; 
 }
 .loginInfoImg{
     width:280px;
@@ -82,7 +83,7 @@ position: relative;
 
 .dropdown-submenu .dropdown-menu {
 top: -4px;
-left: -102%;
+left: 95%;
 margin-top: -1px;
 }
 .banner_img{
@@ -196,11 +197,6 @@ table{
   box-sizing: border-box;
 }
 
-body,
-html {
-  font-family: 'Poppins', sans-serif;
-}
-
 body {
   position: relative;
   height: 100vh;
@@ -278,6 +274,14 @@ body {
   line-height: 50px;
 }
 
+.second_dropdown{
+  display: flex;
+  position:absolute;
+  z-index: 1000;
+  left:0px;
+  top:0px;
+}
+
 .sidebar ul li .tooltip {
   position: absolute;
   left: 122px;
@@ -335,7 +339,7 @@ body {
 }
 
 .sidebar ul li a {
-  color: #fff;
+  color: green;
   display: flex;
   align-items: center;
   text-decoration: none;

@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"rel="stylesheet"/>
 <!--localscript  -->
-<script src="../js/script.js"></script>
+<script src="js/script.js" defer></script>
 <!-- sidebar link -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -74,18 +74,10 @@ $(document).ready(function(){
 </script>
 <body>
   <?php include 'helper/sidebar.php'; ?>
-  <div class="home_content">
+  <div class="home_content ">
    <header>
         <div class="header_nav">
-        <!-- <p id="temp"></p> -->
         <nav class="header_element">
-              <!-- <a id="temp" class="header_link" href="#"></a> -->
-                <a class="header_link" href="#">
-                  <?php $date1 = date_create("2024-06-04");
-                    $date2 = new DateTime();
-                    $diff = date_diff($date1, $date2);
-                  //  echo "Twd: " . ltrim($diff->format("%R%a"), '+');?>
-                </a>
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <a class="header_link" href="home.php">Home</a>
                     <a class="header_link" href="index.php" alt="click">About</a>
@@ -108,8 +100,7 @@ $(document).ready(function(){
                   <button class="btn btn-default" type="button" data-toggle="dropdown">Category
                       <span class="caret"></span>
                   </button>
-                  <ul class="dropdown-menu">
-                      <?php
+                  <ul class="dropdown-menu"><?php
                       $sql = "SELECT * FROM category";
                       $result = $conn->query($sql);
                       if(mysqli_num_rows($result) > 0) {

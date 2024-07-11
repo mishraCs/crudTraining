@@ -1,8 +1,6 @@
 <div class="sidebar">
       <div class="logo_content">
         <div class="logo">
-          <!-- <i class="bx bxl-javascript"></i> -->
-          <!-- <i class="bx bxl-facebook-square"></i> -->
           <i class="bx bxs-user"></i>
           <div class="logo_name">
            MishraPhp
@@ -15,11 +13,47 @@
           <i class="bx bx-search"></i>
           <input name="sideCategorySearch" placeholder="Search..." value="" onkeyup="showCategory(this.value)"/>
           <span class="tooltip">Search</span></li>
-        <!-- </li id="livesearch">
-        xccbf
-        <li> -->
           <div id="livesearch">
           </div>
+          <li>
+            <div style="display:flex">
+              <i class="bx bx-grid-alt" style="color: green;"></i>
+              <span class="links_name  user_div dropdown" >
+                    <button class="" type="button" data-toggle="dropdown"style="background-color: transparent; border: none; color: green;">Category
+                        <span class="caret"></span>
+                    </button>
+                    <ul  class="dropdown-menu">
+                        <?php
+                        $sql = "SELECT * FROM category";
+                        $result = $conn->query($sql);
+                        if(mysqli_num_rows($result) > 0) {
+                            while($category = mysqli_fetch_assoc($result)) { ?>
+                                <li class="dropdown-submenu">
+                                    <div  style="display:flex">
+                                        <img class="header_user_image" src="<?php echo $category['category_image'] ?>" alt="">
+                                        <a class="test" tabindex="-1" href="#"><?php echo $category['category_name'] ?></a>
+                                        <ul class=" dropdown-menu">
+                                            <?php
+                                            $category_id = $category['category_id'];
+                                            $sub_sql = "SELECT * FROM sub_category WHERE category_id = $category_id";
+                                            $sub_result = $conn->query($sub_sql);
+                                            if(mysqli_num_rows($sub_result) > 0) {
+                                                while($subCategory = mysqli_fetch_assoc($sub_result)) { ?>
+                                                    <li><div class="second_dropdown" >
+                                                      <img class="header_user_image" src="<?php echo $subCategory['sub_category_image'] ?>" alt="">
+                                                      <a tabindex="-1" href="sub_category_view.php?subCategoryId=<?php echo $subCategory['sub_category_id']; ?>&category=<?php echo $category['category_name']; ?>"><?php echo $subCategory['sub_category_name'] ?></a></div></li>
+                                                <?php }
+                                            } ?>
+                                        </ul>
+                                    </div>
+                                </li>
+                            <?php }
+                        } ?>
+                    </ul>
+              </span>
+            </div>
+          </li>
+
           <li>
           <a href="./dashboard.php">
             <i class="bx bx-grid-alt"></i>

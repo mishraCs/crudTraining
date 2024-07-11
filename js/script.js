@@ -145,7 +145,8 @@
                 // wind.innerHTML = `Wind Speed: <span>${wndspeed} km/h<span>`
 
         })
-        .catch(err => alert('You entered wrong city name'))
+        
+        .catch(err => console.log('You entered wrong city name'));
     }; 
     // Search at sidebar name="sideCategorySearch"
     function showCategory(str) {
