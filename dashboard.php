@@ -37,6 +37,8 @@ $user = $result->fetch_assoc();?>
             <tr>
                 <td>
                     <button type="button" onclick="window.location.href = 'update.php?user_id=<?php echo $user['user_id'];?>';" class=" logout btn btn-success" data-toggle="modal" data-target="#exampleModal">Update</button>
+                    <button type="button" class=" logout btn btn-danger" data-toggle="modal" data-target="#exampleModal">Logout</button>
+
                 </td>
             </tr>
         </table>
@@ -108,6 +110,27 @@ $result = $profile->user_file($conn, $userId);?>
             ?>
         </tbody>
     </table>
+      <!-- Modal logout -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Wait!! are you want logout yourself.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <a type="button" class="btn btn-primary" href="logout.php" >Yes</a>
+                </div>
+                </div>
+            </div>
+       </div>
+     <!-- Modal logout -->
 </div>
 <?php include 'helper/footer.php'; ?>
 <script src='./js/script.js'></script>

@@ -105,22 +105,21 @@
     window.onload = function() {
         setTimeout(() => {
             $( "#remove" ).hide();
-            // Redirect to the specified URL after 5 seconds
-            // window.location.href = "http://localhost/MyCode/CRUD/dashboard.php";
         }, 7000);
     };   
-
-    let btn = document.querySelector('#btn');
+   
+    let btn = document.querySelector('#btn'); // sidebar js
     let sidebar = document.querySelector('.sidebar');
     let searchBtn = document.querySelector('.bx-search');
 
     btn.addEventListener('click', () => {
-    sidebar.classList.toggle('active');
+     sidebar.classList.toggle('active');
     });
 
     searchBtn.addEventListener('click', () => {
     sidebar.classList.toggle('active');
     });
+
     window.onload = function() { // fetch weather data
         var temp = document.querySelector('#temp') 
         // var wind = document.querySelector('#wind')
@@ -148,8 +147,7 @@
         
         .catch(err => console.log('You entered wrong city name'));
     }; 
-    // Search at sidebar name="sideCategorySearch"
-    function showCategory(str) {
+    function showCategory(str) { //searchCategory
         if (str.length==0) {
           document.getElementById("livesearch").innerHTML="";
           document.getElementById("livesearch").style.border="0px";

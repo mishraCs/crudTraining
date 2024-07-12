@@ -85,6 +85,7 @@ position: relative;
 top: -4px;
 left: 95%;
 margin-top: -1px;
+z-index: 5;
 }
 .banner_img{
     width: 95%;
@@ -210,6 +211,7 @@ body {
   left: 0;
   height: 100%;
   width: 78px;
+  z-index: 2;
   background: #11101d;
   padding: 6px 14px;
   transition: all 0.5 ease;
@@ -453,6 +455,7 @@ body {
   width: calc(100% - 78px);
   left: 78px;
   transition: all 0.5s ease;
+  z-index: 1;
 }
 
 .home_content .text {

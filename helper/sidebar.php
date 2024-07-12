@@ -2,8 +2,8 @@
       <div class="logo_content">
         <div class="logo">
           <i class="bx bxs-user"></i>
-          <div class="logo_name">
-           MishraPhp
+          <div class="logo_name" onclick="alert('hello')">
+          BluethinkPhp
           </div>
         </div>
         <i class="bx bx-menu" id="btn"></i>

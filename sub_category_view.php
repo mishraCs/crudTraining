@@ -11,7 +11,7 @@ if (!empty($_GET['subCategoryId'])) {
            <img class="categorry_view_img" src="<?php echo $subCategory['sub_category_image'] ?>" alt="Category Image">
            <div class="col_div">
             <?php
-            $subCategoryId = $subCategory['sub_category_id'];
+            $subCategoryId = 1;
             $userId = $_SESSION['user_id'];
              $sql ="SELECT * FROM cart WHERE sub_category_id = $subCategoryId AND user_id = $userId";
              $result = mysqli_query($conn, $sql);
