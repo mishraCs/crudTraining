@@ -270,3 +270,13 @@ curl_exec($ch);
 curl_close($ch);
 ?>
 
+The symbol of "phi" and "phase" symbol 
+As php relies on a server the real-time location can't be provided. Only a static location can be provided. But there is a need to post the javscript data to php so  that it can easily be accessible to a program on the server.
+An ip address gives you a quite unreliable location. To find current location is visit the google cloud console.
+
+Modularity in oop is achieves through classes and objects. classes=> Blueprint for creating objects they define properties (attributes) and methods (functions).
+Objects=> Instances of classes. They bundle data and behavior together.
+
+Oop promotes better code organization reusability and scalability.
+
+
