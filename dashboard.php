@@ -36,9 +36,9 @@ $user = $result->fetch_assoc();?>
             <tr><td><p>Email: <?php echo $user['email']; ?></p></td></tr>
             <tr>
                 <td>
-                    <button type="button" onclick="window.location.href = 'update.php?user_id=<?php echo $user['user_id'];?>';" class=" logout btn btn-success" data-toggle="modal" data-target="#exampleModal">Update</button>
-                    <button type="button" class=" logout btn btn-danger" data-toggle="modal" data-target="#exampleModal">Logout</button>
-
+                    <button type="button" onclick="window.location.href = 'update.php?user_id=<?php echo $user['user_id'];?>';" class=" logout btn btn-success" data-toggle="modal" data-target="#exampleModallll">Update</button>
+                    <button type="button" class=" logout btn btn-danger" data-toggle="modal" data-target="#exampleModallll">Logout</button>
+                     <!-- <a type="button" class="btn btn-primary" href="logout.php">LogOut</a> -->
                 </td>
             </tr>
         </table>
@@ -80,11 +80,11 @@ $result = $profile->user_file($conn, $userId);?>
                                     
                                 </div>
                                  <!-- Modal delete -->
-                                 <div class="modal fade" id="deletemodal_<?php echo $user['profile_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                 <div class="modal fade" id="deletemodal_<?php echo $user['profile_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModallllLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
+                                                    <h5 class="modal-title" id="exampleModallllLabel">Confirm Deletion</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -110,14 +110,14 @@ $result = $profile->user_file($conn, $userId);?>
             ?>
         </tbody>
     </table>
-      <!-- Modal logout -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
+    <!-- Modal logout -->
+    <div class="modal fade" id="exampleModallll" tabindex="-1" role="dialog" aria-labelledby="exampleModallllLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModallllLabel">Modal title</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -125,15 +125,13 @@ $result = $profile->user_file($conn, $userId);?>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                    <a type="button" class="btn btn-primary" href="logout.php" >Yes</a>
-                </div>
+                    <a type="button" class="btn btn-primary" href="logout.php">Yes</a>
                 </div>
             </div>
-       </div>
-     <!-- Modal logout -->
+        </div>
+    </div>
+    <!-- Modal logout -->
 </div>
 <?php include 'helper/footer.php'; ?>
 <script src='./js/script.js'></script>
-
-
 

@@ -1,4 +1,6 @@
-<?php include 'helper/header.php'; 
+<?php
+
+include 'helper/header.php'; 
 if (isset($_POST['submit'])) {
     $register = new AddUser;
     $registerMessage = $register->register_user($conn);

@@ -127,9 +127,6 @@ z-index: 5;
 .dropdown-menu.pointer.show {
     cursor: pointer;
 }
-/* .hjk{
-    color: red;
-} */
 table{
     text-align: center;
 }
@@ -477,3 +474,14 @@ body {
 .dropdown-item{
   background-color: black;
 }
+/* popup modal */
+.no-overlay .modal-backdrop {
+  display: none  !important;
+}
+.modal-backdrop.fade {
+  display: none  !important;
+}
+.modal-backdrop.in {
+  display: none  !important;
+}
+/* popup modal */
