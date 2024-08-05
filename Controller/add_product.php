@@ -16,7 +16,6 @@ class addProduct extends CreateConnection { //add_product.php
                         });
                  </script>";
         }else{
-            // die('ok');
             $userId = $_SESSION['user_id'];
             $sql = "INSERT INTO cart (user_id, sub_category_id) VALUES ($userId, $SubCategoryId)";
             try {

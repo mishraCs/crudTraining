@@ -13,7 +13,6 @@ if(isset($_GET['q'])){
                 <div class=" img_user_info col-md-5">
                 <img class="categorry_view_img" src="<?php echo $subCategory['sub_category_image'] ?>" alt="Category Image">
                 <div class="col_div">
-                   
                 <button class='btn btn-danger'>Buy Now</button>
                 </div>
                 </div>

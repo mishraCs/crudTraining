@@ -1,0 +1,698 @@
+In PHP $this is a special variable used within an object to refer to the current instance of the class.
+In PHP, when using Object-Oriented Programming (OOP), there are primarily three types of functions/methods that can be defined within a class:
+Instance Methods: Operate on instances of a class ($this context), most commonly used in OOP.
+Static Methods: Belong to the class itself (self:: context), useful for utility methods or when no instance-specific data is needed.
+Magic Methods: Predefined methods with special names that are automatically called by PHP based on specific actions or conditions.
+
+In PHP function type based on argument and return value:
+
+Function Based on Arguments:
+
+Functions can accept zero or more arguments.
+Optional arguments can have default values if not provided.
+Function Based on Return Value:
+
+Functions can return a single value, multiple values (using arrays or objects), or different types based on conditions.
+Return statements terminate the function and can return control to the calling code with a value.
+
+Function are four types in php
+1.Function with no argument and no return value.
+2.Function with required argument but not return value.
+3. Function returning a value but not argument.
+4.Function with returning value and with required argument.
+
+A function argument are two type that is first Actual argument and second is formal argument. 
+
+Access Modifiers:
+Public: When a property or method is declared as public it can be accessed from anywhere, both within the class itself and forom outside.
+Protected: When a property or method is declared as protected it can only be accessed within the class itself and by classes that extend it (subclases).
+Private : When a property or method is declared as private it can only accessed within the class itself. it cannot be accessed by child classes or form outside the classes.
+Use of access modifier : Access modifiers allow you to restrict or allow access to class members based on your design requirements.
+Encapsulation : They enforce encapsulation by hiding internal implementation details of a class, improving code readability and maintainability.
+Method overriding : Method overriding is a feature in object-oriented-programing that allow a subclass or child class to provide a specific implementation of a method that is already defined its superclass or parent class.
+
+Abstract class: In php, an abstract class is a class that can't be instantiated on its own and is mean to be extended by other classes
+-An abstract class can have abstract methods which are methods declared without an implementation. Subclasses of the abstract class are required to implement these methods.
+
+Property overriding in php occurs when a child class difines a property with the same name as a property in its parent class. When this happens the property in the child class overrides the property in the parent class for instances of the child class.
+
+Static method can be called directly without creating an instance of the class first. static method can't instatiate by other class, because already its method and properties are public.
+
+A class have both static and not-static methods, A static method can be accessed from a method in the same class using the self keyword and double colon (::) .
+Static method can also be called from methods in other classes. To do this the static method should be public.
+To call a static method from a child class use the parent keyword inside the child class, here the static method can be public or protected.
+Static properties can be called without creating an instance of a class -> ClassName::$property;
+
+Interfaces allow you to specify whate methods a class should implement. Interfaces make it easy to use a variety of classes in the same way when one or more classes use the same interface, it is referred to as polymorphism. 
+
+Interface are similler to as abstract class.
+The difference berween interfaces and abstract classes are.
+Interfaces can't have properties while abstract classes can
+All interfaces methods must be public while abstract method is public or protected
+All methods in an interface are abstract so that they cannot implemented in code and the abstract keyword is not necessary.
+Class can implement an interface while inheriting from another class at the same time.
+A class that implements an interfaces must implement all of the interfaces methods as abstract class.
+
+Trait : php only support single inheritance, a child class can inherit only from one single parent.
+Traits are used to declare methods that can be used in multiple classes.
+Trait can have methods and abstract methods that can be used in multiple classes, and the methods can have any access modifier
+
+Namespace are qualifiers that solve two different problems,
+1. They allow for better organization by gouping classes that work together to perform a task.
+2. They allow the same name to be used for more than one class.
+
+Namespaces are declared at the beginning of a file using the namespace keyword -> namespace Html;
+Any code that follows a namespace declaration is operating that belong to the namespace can be instantiated without any qualifiers
+
+To access classes form outside a namespace the class needs to have the namespace attached to it.
+*It can be useful to give a message or class an alias to make it easier to write this is done with the use keyword.
+
+
+Iterable : An iterable is any value which can be looped through with a foreach() loop.
+The iterable keyword can be used as a data type of a function argument or as the return type of a function.
+
+All array are iterables so any array can be used as an argument for a function that requires an iterable.
+
+cURL : cURL is a library that allow you to connect and communicate to many different type of servers with many different type of protocols. It deals with url, To use cURL in php you need to ensure that php is compiled with cURL support.
+The cURL project has two products, 1. libcurl 2. curl.
+cURL : A command line tool for getting or sending files using URL syntax. phpinfo() function will display in its output. 
+
+Exam : The simplest and most common request/operation made using HTTP is to get a URL. The client issues a GET  request to the server and receives the document it asked it.
+
+cURL basic function :
+curl_init() -> will initialize a new session and return a cURL handle.
+curl_exec($ch) -> Its purpose is simply to execute the predefined curl session (given by $ch);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1) -> return page contents, if set 0 then no ouptput will be returned.
+curl_setopt($ch, CURLOPT_URL, $URL) -> pass url as a parameter. This is your target server website address. This is the url you want to get from the internet.
+curl_close($ch) -> close curl resources and free-up system resources.
+
+<?php
+// create a new cURL resource
+$ch = curl_init();
+
+// set URL and other appropriate options
+curl_setopt($ch, CURLOPT_URL, "http://www.example.com/");
+curl_setopt($ch, CURLOPT_HEADER, 0);
+
+// grab URL and pass it to the browser
+curl_exec($ch);
+
+// close cURL resource, and free up system resources
+curl_close($ch);
+?>
+
+
+
+mysqli connect ->
+<?php
+$servername = "localhost";
+$username = "username";
+$password = "password";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password);
+
+// Check connection
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+echo "Connected successfully";
+?>
+mysqli connect ->
+create database and check query ->
+// Create database
+$sql = "CREATE DATABASE myDB";
+if ($conn->query($sql) === TRUE) {
+  echo "Database created successfully";
+} else {
+  echo "Error creating database: " . $conn->error;
+}
+
+$conn->close();
+create database and check query ->
+create table->
+CREATE TABLE MyGuests (
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+firstname VARCHAR(30) NOT NULL,
+lastname VARCHAR(30) NOT NULL,
+email VARCHAR(50),
+reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)
+create table->
+Insert query ->
+INSERT INTO table_name (column1, column2, column3,...)
+VALUES (value1, value2, value3,...)
+Insert query and select last insert id ->
+$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('John', 'Doe', 'john@example.com')";
+
+if ($conn->query($sql) === TRUE) {
+  $last_id = $conn->insert_id;
+  echo "New record created successfully. Last inserted ID is: " . $last_id;
+} else {
+  echo "Error: " . $sql . "<br>" . $conn->error;
+}
+Insert query and select last insert id ->
+insert myltiple query ->
+$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('John', 'Doe', 'john@example.com');";
+$sql .= "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('Mary', 'Moe', 'mary@example.com');";
+$sql .= "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('Julie', 'Dooley', 'julie@example.com')";
+
+if (mysqli_multi_query($conn, $sql)) {
+  echo "New records created successfully";
+} else {
+  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+insert myltiple query ->
+mysqli select data ->
+
+$sql = "SELECT id, firstname, lastname FROM MyGuests";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+  }
+} else {
+  echo "0 results";
+}
+mysqli select data -> for return variable $row = $result->fetch_all(MYSQLI_ASSOC);
+
+Customize handling for PHP errors by throwing an ErrorException on any E_NOTICE or E_WARNING.
+function errHandle($errNo, $errStr, $errFile, $errLine) {
+    $msg = "$errStr in $errFile on line $errLine";
+    if ($errNo == E_NOTICE || $errNo == E_WARNING) {
+        throw new ErrorException($msg, $errNo);
+    } else {
+        echo $msg;
+    }
+}
+set_error_handler('errHandle');
+
+sql join using sql query with php programing
+Inner join, left join, right join
+Inner join -> Select all records form left table and matching recors from right table
+left join -> Return all records from left table and matching record from the right table
+Right join -> The right join keyword return all records from the right table and matching records from the left table
+
+
+Foreighn key and on DELETE CASCADE
+CREATE TABLE IF NOT EXISTS (
+FOREIGN KEY(student_id) REFERENCES student(student_id) on DELETE CASCADE)
+
+PHP errors can occure during web development and understanding their types is essential for troubleshooting and improving code quality.
+php in common four errors types-:
+Parse error : (sytax errors)-> These errors occure due to mistakes in the source code.
+Fatal error: It is the type of error where php compiler understand the php code but it recognizes an undeclared function.
+Warinig error-> The main reason of warning errors are including a missing file.
+Notice errors-> It is similar to warning error. It means that the program contains something wrong but it allows the execution of script.
+
+In php when a script encounters a parse error it immediately stops execution, however if you want to handle execution and continue execution you can use try catch blocks, also fatal error,
+
+In php Notice and warnings are non-fatal errors that allows the script to continue executing.
+
+Define and register a custom error handler using (set_error_handler).
+
+
+
+Both json and xml can be used to receive data from a web server. 
+JSON USING PHP AND JAVASCRIPT
+JSON stand for javaScript Object Notation, Json is a lightweight format for storing and transporting data. json is self-describing and easy to understand.
+syntax-> Data is in name/value pairs, Data is separated by commas, Curly braces hold objects, Square brackets hold array, 
+
+The json format is syntactically identical to the code for creating javascript objects, because this similarity a javaScript program can easily convert json data into native javascript.
+
+A common use of json is to read data from a web server and display the data in a web page.
+Json is language independent. 
+JSON.parse() is use to convert the string into a javascript object. 
+
+JSON.stringify() -> Convert a javaScript object into a string.
+if you have already a object such as $obj = {"name":"jhon", "city":"london"};
+$myjson = JSON.stingify($obj); -> this function is use to send information to a server as a json type data;
+
+In json values must be one of the following data types -> string, array, number, object, Boolean, null.
+The file type for json files is ".json" , The mime type for json text is "application/json" .
+
+for loop and for in loop
+exa ->
+let text = "";
+for(let x in myObj){
+  text += x +"," ;
+}
+
+php is a server side programing language and can be used to access a database. When sending data to the server, it is often best to use the HTTP POST method. and the data sent to the server must now be an argument to the send() method.
+
+xmlhttp.open("POST", "JSON_demo_db_post.php");
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencode");
+xmlhttp.send("x="+dbParam);
+
+The file from the data a file get as client have statement first -> header("Content-Type: application/json;charset=utf-8");
+JSONP is a method for sending JSON data without warrying about cross-domain issues JSONP does not use the XMLHttpRequest oject, JSONP use the <script> tag instead requesting a file from another domain can cause problems, due to cross-domain policy.
+JSONP uses this advantage and request files using the script tag instead of the XMLHttpRequest object.
+exa -> <script scrc = "demo_json.php">
+
+<?php
+// create a new cURL resource
+$ch = curl_init();
+
+// set URL and other appropriate options
+curl_setopt($ch, CURLOPT_URL, "http://www.example.com/");
+curl_setopt($ch, CURLOPT_HEADER, 0);
+
+// grab URL and pass it to the browser
+curl_exec($ch);
+
+// close cURL resource, and free up system resources
+curl_close($ch);
+?>
+
+The symbol of "phi" and "phase" symbol 
+As php relies on a server the real-time location can't be provided. Only a static location can be provided. But there is a need to post the javscript data to php so  that it can easily be accessible to a program on the server.
+An ip address gives you a quite unreliable location. To find current location is visit the google cloud console.
+
+Modularity in oop is achieves through classes and objects. classes=> Blueprint for creating objects they define properties (attributes) and methods (functions).
+Objects=> Instances of classes. They bundle data and behavior together.
+
+Oop promotes better code organization reusability and scalability.
+
+
+Domain name at localhost=>
+
+Setting up a virtual host in php can be quite useful especially when working with local development environments.
+Steps to create a virtual host.
+1. Edit the Hosts file 
+  .Open the hosts file located at file path using text editor 
+  . Add entries for your virtual hosts
+exa-: 127.0.0.1 localhost
+      127.0.0.1 mysite.local
+      127.0.0.1 example.local
+2. Configure virtual hosts 
+  .Edit http-vhosts.conf located in xampp\apache\conf\extra\
+  .  Add the following virtual host entries
+
+<Virtualhost *:80>
+   Document c:\xampp/htdocs/mysite/
+   Servername www.mysite.local
+<Virtualhot>
+<Virtualhost *:80>
+   Document c:\xampp/htdocs/example/
+   Servername www.example.local
+<Virtualhot>
+
+3. Enable Virtual Hosts in appache 
+ . In httpd.conf  , locate the "Supplemental configuration" Section (around line 500).
+ . Uncomment the line that includes the virtual hosts configuration.   => Includes conf\extra\http-vhosts.conf
+
+4. Restart xampp
+ .Restart xampp to apply the changes.
+now i have to access "www.example.local"
+                     "www.mysite.local"
+
+
+
+
+Today study Friday
+Php is a general pupose scripting language geared towads web development. It was originally created by Danish-Canadian programmer Rasmus Lerdorf in 1993 and released in 1995.
+full form => Personal home page => Hypertext preprocessor
+
+Use GET when you need to access a resources and retrieve data and you don't have to modify or alter the state of this data.
+Use Post when you need to send some data to the server. exa- somewhere.
+use Head when you need to access a resource and retrieve just the headers from the response, without any resource data.
+Use PUT when you need to replace the state of some data already existing on that system.
+Use DELETE when you need to get the communication options from a resource so for checking allowed methods for that resource.
+Ex- We use it for CORS request and permissions rules.
+CORS => CROSS ORIGIN RESOURCE SHARING.
+
+Basically a protocol is a set of rules you should use from your application to adhere to it.
+
+CROS ORIGIN RESOURCE SHARING (CORS) request occurs when a web page running in one domain (the origin) makes a request to a resource ( such as an API or SERVER ) hosted on a different domain. Cors is essential for security as it prevents unauthorized cross origin requests that could compromise sensitive data.
+
+cors data -> with php headers.
+
+XML : xml stands for extensible markup language and it is a way of creating and defining your own tags to store and organize data.
+Extensible Markup language (XML) is a markup language and file format for storing, transmittinh and reconstruction arvitary data. It defines set of rules for encoding documents in a format.
+
+a form input fields for limitation [maxlength='30']
+substr(string, start, length) => return a part of a string 
+
+xml structure => XML  have root element <note> and body element 
+
+$note = <<<xml
+<note>
+<heading> this is structure </heading>
+</note>
+
+$xml = new SimpleXMLElement($note);
+echo $xml->asXML();
+
+__construct(data, options, data_is_url, ns, is_prefix)  the __construct() function in php is used to create a new SimpleXMLElement object 
+
+1. data=> It is a required parameter. It specifies a well-formed XML string or the path/url to an XML document if data_is_url is set to true
+
+ => php can have used to work with various XML formats.
+
+1. RSS and ATOM feeds-> these formats describe how reader apps handle web feeds.
+
+2. Microsoft.NET CONFIGURATION FILES -> XML is used extensively in .NET for configuration setting.These files define application behavior connecting strings, and other parameters.
+
+3. Microsoft office documents: starting from office 2007 Microsoft office files (such as word document Excel, spreadsheets and powerPoint presentations) are based on XML for example-> Docx xlsx and pptx formats all use XML as their foundation.
+
+4. PDF file: Although not the primary format, PDF file can also be stored as XML 
+
+5. SVG (Scalable Vector Graphics): SVG files represent vector graphics using XML Syntax. They ate commonly used for web graphics and icons.
+
+6. COLLADA => This format is used for exchanging 3D models between different software applications 
+
+7. XHTML(Extensible Hypertext Markup language)-> 
+
+The is_dir() function in php allows you to determine whether a given filename represents a directory is_dir(file_path) : bol
+
+$note->addAttribute('xmlns:xai', 'url');
+
+addchild(name, value, ns);
+asXML(filename)-> returns a well-formet sml string xml stirng (xml version 2.0);
+$xml = simplexml_load_string($note);
+
+foreach ($xml->body[0]->attributes() as $a => $b){
+   echo $a, '=',$b,"<br>";
+{
+
+The attribute function returns the attributes and values of an XML element  attributes(ns, prefix);
+
+inner $xml = simplexml_load_string($note);
+
+outer $eleme = new SimpleXMLElement($xml);
+
+echo $elem->asXML
+
+excel extension => xlsx
+
+csv to excel format conversion first install PHPSpreadsheet library  2.1 version
+
+autoload command => composer dump-autoload
+
+SimpleXMLElement::getDocNamespaces(recursive, from)
+
+
+The getDocNameSpaces declared in an XML documents.
+
+URI -> Uniform resource identifier(URI) is a string of charcters used to identify a name or a resource on the Internet such identification endless interaction with representation of the resource over a network (typically the world wide web) using specific protocols.
+
+URL : IN computing a uniform resource locator (URL) is a subset of the uniform resource Identifier (URI) that specifies where an identified resource is available and the mechanism for retrieving it.
+
+URI: MySQL://localhost@databasename:password 
+
+URL: mySQL://localhost
+
+to react on xml -> getName() return name of the element 
+
+In XML namespaces provide a way to avoid conflicts when mixing xml documents from different application. Let's dive into how they work.
+
+The full URL acts as a globaly identifier.
+
+if you have any other part of program -> 
+XML ->
+$dom = new Dom Document();
+$dom=> loadXML("<note><to>Tove</to><from>jank</from></note>");
+$xpath = new DOMXPath($dom);
+
+
+$form_node = $xPaht->query("note/from")->item(0);
+
+if($fromNode){
+ echo $formNode->nodeValue;
+}
+
+xPath() => The SimplexmlElement::xPaht() function is an in built function in php which runs xPath query on the xml document
+
+Parameters : This function accepts single parameter $path which is required. It is used to specify the xPath of XML document. Return it returns an array of simple XMLElements on success or false on failure.
+
+
+SimpleXMLElement::xpath(): Runs an XPath query on an XML document.
+$result = $xml->xpath('/note/to');
+
+
+DOMXPath: Used to query XML documents.
+$dom = new DOMDocument();
+$dom->loadXML("<note><to>Tove</to><from>Jani</from></note>");
+$xpath = new DOMXPath($dom);
+
+$fromNode = $xpath->query("note/from")->item(0);
+if ($fromNode) {
+    echo $fromNode->nodeValue;
+}
+
+getDocNamespaces(TRUE) => An array of namespace names with their associated URIs.
+
+The simplexml_load_file() function in PHP returns an object of the SimpleXMLElement.
+
+The fopen() function returns a pointer to a FILE object if the execution succeeds; otherwise, it returns NULL123. This function is commonly used to open files for various operations (such as reading, writing, or appending) based on the specified mode of operation. If the file exists, it opens that file; otherwise, it creates a new file. The return value allows you to interact with the opened file stream in your program. 
+
+The fputcsv() function in PHP is used to format a line as a CSV.
+
+opendir($folderPath); => Returns the directory handle resource on success. FALSE on failure. Throws an error of level E_WARNING if path is not a valid directory, or if the directory cannot be opened due to permission restrictions or filesysytem errors. You can hide the error output of opendir() by adding '@' to the front of the function name.
+
+readdir() => List all entries in the images directory, then close: The readdir() function returns the name of the next entry in a directory.
+
+rewinddir() => Open a directory, list its files, reset directory handle, list its files once again, then close: The rewinddir() function resets the directory handle created by opendir().
+
+pathinfo() => Get information about a file path: output of the program 
+Array
+(
+[dirname] => /testweb
+[basename] => test.txt
+[extension] => txt
+)
+
+mkdir() => Create a directory named "test": The mkdir() function creates a directory specified by a pathname.
+
+move_uploaded_file(file, dest) => The move_uploaded_file() function moves an uploaded file to a new destination.
+
+SimpleXMLElement::Path($path);
+Parameters : This function accepts single parameter $path which is required. It is used to specify the Xpath path of XML document. reurn : It returns an array of simpleXMLElements o success or flse.
+
+
+
+JavaScript : JavaScript is a dynamic scripting language that's primarly used in web development, but it can be complex due to the necessity of writing full javaScript code, On the flip side, jquery is a javascript library that simplifies the coding process by allowing the programmer to write only the crucial Jquery code. js -> DOM, ECMA -> it provides the core language features, syntax and semantic for javaScript. jqery -> DOM.
+
+The Element property innerHTML gets or sets the HTML or XML markup contained within the element. Setting the value of innerHTML  lets you easily replace the existing contents of an element with new content.
+
+syntax :
+document.form_name.elements[index_values];
+document.form_name.name_attribute_value;
+document.myform.elements[0];
+
+Ajax -> Ajax is the art of exchanging data with a server and updating parts of a web page without reloding the whole page.
+
+DOM -> it allows javaScript to manipulate the structure content and style of web pages.
+
+Promiss -> Promiss provide a way to handle asynchronous operations more elegently. Common mistakes to avoid.
+
+In a javaScript methods are three type :
+
+1. Constructor -> magic
+2. Prototype -> with object
+3. static -> without object
+
+basename(path, suffix) : The basename() function returns the filename from a path. The filename of the specified path.
+
+Property -> predefined, afterdefined
+
+When child class have constructor and parent class have also constructor then to call all without any error it is make sure use inner constructor.
+
+js: super();
+php : parent::_construct();
+
+How to use other file class using js -> export let name = 'index.text';
+import{name}form './file1.js';
+
+JavaScript a powerfull tool for controlling the flow of your application and codding custom logic to event handling. 
+For : loops through a block of code a number of times.
+for/in : loops through the properties of an object.
+for/of: loops through the value of an iterable object.
+
+while and do/while  also loops through a block of code while a specified condition is true.
+
+JavaScript also has four built in objects : Array, Date, Math and string. 
+JavaScript also has constructors for Boolean and number types.
+
+Built in function : JavaScript has five function bult in to the language They are eval parseInt, escape and unescape.
+
+Eval : Evaluates a string and returns a value.
+
+parseInt(string)
+parsInt(string, radix)
+
+'string' : is a string that represents the radix of the return value you want to parse.
+
+'radix' : is an integer that represents the radix of the retun value.
+
+If parseInt encounters a character that is not a numeral int the specified radix, it ignores it and all succeeding charcters and retuns the integer values parsed up to that point. parsInt truncates numbers to integer values. 
+If the radix is not specifies or is specified as zero javaScript assumes the following.
+
+If the input string begins with "ox" the radix is sixteen (hexadecimal). 
+If the input string begins with "0" the radix is eight (octal)
+
+If the input stirn begins with any other value the radix is ten (decimal).
+
+Note-> If the first charcter cannot be converted to a number, parseFloat returns NAM.
+
+parseFloat :
+Parse a string argument and returns a floating point number.
+
+syntax : parseFloat (string)
+string is a string object or literal parseFloat parses its argument a string parseFloat parses its arguments a string and returns a floating point number. If it encounters other than a sign (+ or -), numeral (0-9) a decimal point or an  exponent then it returns the value up to that point and ingnores that character and all succeeding characters.
+
+Escape : Returns the hexadecimal encoding of an argument in the ISO Latin-| character set. Syntax : escape('string');
+
+The value returned by the excape function is one of the following :
+
+for alpahanumeric characters the same character (i.e the function has no effect).
+For the space character a + sign.
+
+For non-alphanumeric characters other that space a string of the form ".xx" where xx is the hexadecimal encoding of the ASCII character in the ISO Latin-I character set.
+
+Unescape : Returns the ASCII
+string for the specified value syntax : unescape('string');
+
+Whate are some common uses cases for the array constructor :
+Common use cases for the Array Constructor include:
+
+
+Creating arrays with a specific length for later initialization. Dynamically creating arrays with elements provided as arguments.
+
+Using with higher-order functions like Array.form() and Array.of()
+prototype allows you to add new properties and methods to arrays -> The constructor property returns the function that created the array prototype.
+
+const d = new Date();
+  d.getFullYear(); => 2024 => d.getUTCFullYear();
+  d.getMonth()+1; => 7
+d.getDate(); => 31
+d.getHours(); => 11
+d.getMinutes(); => 50
+d.getSeconds(); => 9
+
+By default, JavaScript will use the browsers time Zone and display a date as a full text string 
+
+Create a new date object 
+new Date(year,month,day,hours,minutes,second,ms);
+JS counts months form 0 to 11.
+miliseconds will not display.
+specifying a date parameter higher that max will not result in on error but add the overflow to the next month.
+
+js in loop for/in and for/of
+
+You cannot omit month If you supply only parameter it will be treaed as miliseconds 
+
+UTC => Cordinated Universal Time 
+GMT => Greenwich Mean Time
+The setTimeout() is executed only once.
+If you need repeated execution use setInterval() Instead.
+
+In JavaScript cookies can store up to 4kb of data per cookie
+
+Additionally, no more than 50 cookies are allowed per domain.
+
+The cookie will only be accessible on pages under the './dashboard' path;
+document.cookie = myfirstcookie = Somecookievalue; path = /dashboard;
+
+while(c.charAt(0)==''){c = c.substring(1)};
+LocalStorage is a client-side web storage mechanism provided by JavaScript that allows developers to save key-value pairs locally in the user's browser. It provides a simple way to store data  persistently across for storing user preferences.
+
+Session data and other information that needs to be retained for users to visit the website again.
+
+Developing a web application there are several ways to store data.
+1. Client - side storage.
+  . Local storage
+  . Session Storage
+  . Cookies
+Local storage stores data persistently.
+It accessible across sessions and tabs
+Session storage : Similar to local storage but data is available only during the current session.
+
+By default, php session have a lifetime of 24 minutes (1440 seconds)
+The session lifetime is controlled by the session lifetime is controlled the session -> ini.set('session.gc-maxlietie',1800);
+
+Cookies : An older method that stores small amounts of data in the user's browser. Less commonly used due to better alternatives.
+
+2. Server - side.storage
+Database : store data on the server using database like MySQL, Postgersql or MongoDB.
+File storage: Save files (images, document etc);
+Cache : Temporarily store frequently accessed data to improve performance.
+// storing
+const myData = { name:'Jhon', age:30};
+
+localstorage.setItem('myKey', JSON.stringigy(myData));
+
+// Retrieving data
+const storeData = localstorage.getItem('mykey');
+const parseData = JSON.parse(storeData);
+console.log(parsedData);
+
+When fetching data from an API using AJAX, you can cache the response to avoid unncessory requests.
+
+-> A common use of JSON is to exchange data to/from a web server for convert a JavaScript object into a string with JSON.stringify();
+                                     &&&
+When reciving data from a web server the data is always string. for parse the data with JSON.parse() and the data becomes a JavaScript object.
+
+At localhost to save data use ->
+localStorage.setItem('name', 'Ram');
+
+
+
+Noraml function : A normal function is a regular function that you can call directly. It does't create objects or instances.
+
+2. Constructor function : A constructor function is used to create and utilize objects. It's typically used with the new keyword.
+
+for loop -> used to execute a block of code a specific number of times.
+
+for in -> Iterates over the properties (keys) of an object.
+
+for of -> Iterates over the values of an iterable Object.
+
+while -> Execute a block of code while a specified condition is true.
+
+do/while-> Similar to while loop, but the code block is executed at least once (even if the condition is false).
+
+A set is a collection of unique values. It does't allow duplicate entries.
+
+1. new set() creates an empty set.
+2. set.add(value) adds a value to the set.
+3. set.delete(value) removes a value form the set.
+4. set.has(value) checks if a value exists in the set.
+5. set.size returns the number of elements in the set.
+
+A map is a collection of key value pairs. Key can be any of type (not just strings).
+
+Method and properties -
+new Map() creates an empty map.
+map.set(key, value) associates a value with a key.
+
+map.get(key) retrieves the value by its key.
+map.has(key) checks if a key exists in the map.
+
+
+map.delete(key) removes a key-value pair map.size returns the numbers of entries in the map.
+
+In a map, you can use any value (string, number, object etc as the associated data for a specific key.)
+
+The break statement is used to exit a loop prematurely. 
+When encountered it immediately terminates the loop and continues with the code after the loop 
+The continue statement skips the current iteration of the loop and proceeds to the next iteration.
+
+Array Destucting -> pick up array elements into your own variables.
+
+The object literal syntax allows you to create a single object directly by defining its properties and values within curly braces.
+
+Object.assign({}, defaults, custom).
+allows you to merge properties form multiple into a single object.
+
+Object from Entries () converts an array of key-value pairs into an object.
+
+Object.prevent Extensions(object), It marks an object as non-extensible.
+
+
