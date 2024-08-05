@@ -13,7 +13,6 @@ if(strpos($urlHome, "home.php")){?>
     ?>
     <?php include './2023-footer/footer/dist/index.php'?>
     </div>
-    <script src="js/script.js" defer></script>
     </body>
     </html>
 <?php }else{

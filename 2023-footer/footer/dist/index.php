@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>CodePen - Footer</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-<link rel="stylesheet" href="./style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 
 </head>
@@ -96,7 +95,7 @@
   </div>
 </footer>
 <!-- partial -->
-  <script src='https://unpkg.com/feather-icons'></script><script  src="./script.js"></script>
+  <script src='https://unpkg.com/feather-icons'></script>
 
 </body>
 </html>

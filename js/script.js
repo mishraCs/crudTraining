@@ -71,6 +71,23 @@ function validateform() {
     return returnvalue;
 }
 
+function showCategory(str) {
+    if (str.length === 0) {
+        document.getElementById("livesearch").innerHTML = "";
+        document.getElementById("livesearch").style.border = "0px";
+        return;
+    }
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            document.getElementById("livesearch").innerHTML = this.responseText;
+            document.getElementById("livesearch").style.border = "1px solid #A5ACB2";
+        }
+    };
+    xmlhttp.open("GET", "livesearch.php?q=" + str, true);
+    xmlhttp.send();
+}
+
 window.onload = function() {
     setTimeout(() => {
         $("#remove").hide();
@@ -88,6 +105,8 @@ window.onload = function() {
         sidebar.classList.toggle('active');
     });
 
+
+
     // fetch weather data
     const temp = document.querySelector('#temp');
     const apik = "bc6e90e079477cfea6b91eb9053b9cc0";
@@ -104,23 +123,29 @@ window.onload = function() {
             temp.innerHTML = `Temp: <span>${convertion(tempature)} C</span>`;
         })
         .catch(err => console.log('You entered the wrong city name'));
+        // document.write("You entered the wrong city name");
+
+
+        // if (!!location.href.match(/cart.php/)) {
+        //         const productInfo = new FormData();
+        //         productInfo.append("productInfo", JSON.stringify(formData));
+        //         // console.log(productInfo);
+        //         $.ajax({
+        //             type: "POST",
+        //             url: "cart.php",
+        //             data: productInfo,
+        //             cache : false,
+        //             processData: false,
+        //             contentType: false,
+        //             error: function(req, err) {
+        //                 console.log(err);
+        //             },
+        //             success: function(response) {
+        //                 console.log('Response received:', response);
+        //             }
+        //         });
+        // }
 };
 
-function showCategory(str) {
-    if (str.length === 0) {
-        document.getElementById("livesearch").innerHTML = "";
-        document.getElementById("livesearch").style.border = "0px";
-        return;
-    }
-    const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-            document.getElementById("livesearch").innerHTML = this.responseText;
-            document.getElementById("livesearch").style.border = "1px solid #A5ACB2";
-        }
-    };
-    xmlhttp.open("GET", "livesearch.php?q=" + str, true);
-    xmlhttp.send();
-}
 
 

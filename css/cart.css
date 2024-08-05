@@ -1,3 +1,14 @@
-#product-img{
-    height: 500px;
+#product-img {
+    height: 355px;
+    width: 355px;
 }
+/* @media (min-width: 992px) {
+    .col-md-5 {
+        width: 27.666667% !important;
+    }
+}
+@media (min-width: 992px) {
+    .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9 {
+        float: none !important;
+    }
+} */
