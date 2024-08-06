@@ -13,19 +13,10 @@ $sqlTotal = "SELECT COUNT(*) FROM users";
 $resultTotal = $conn->query($sqlTotal);
 $totalRecords = $resultTotal->fetch_array()[0];
 $totalPages = ceil($totalRecords / $limit);?>
- <div class="btn-group">
-  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categry</button>
-  <div class="dropdown-menu pointer">
-    <a class="dropdown-item" href="upload_category.php">Add Category</a>
-    <a class="dropdown-item" href="delete_category.php">Delete Category</a>
-    <a class="dropdown-item" href="upload_sub_category.php">Upload Subcategory</a>
-    <!-- <a class="dropdown-item" href="delete_subcategory.php">Delete Subcategory</a> -->
-
-  </div>
-</div>
-<div class="container">
+<div class="home-parent justify-content:center">
+<div class="container ">
   <h2>User List</h2>
-  <table class="table table-bordered justify-content-center">
+  <table class="table table-bordered home-table">
       <thead>
           <tr>
               <th>First Name</th>
@@ -39,7 +30,7 @@ $totalPages = ceil($totalRecords / $limit);?>
       <?php if ($result->num_rows > 0) {
           while($row = $result->fetch_assoc()) {?>
               <tr>
-                  <td><?php echo $row['first_name']; ?></td>
+                  <td class="home-table"><?php echo $row['first_name']; ?></td>
                   <td><?php echo $row['last_name']; ?></td>
                   <td><?php echo $row['email']; ?></td>
                   <td><img class="UsersImg" src="<?php echo $row['profile_image']; ?>" width="100"></td>
@@ -95,6 +86,32 @@ $totalPages = ceil($totalRecords / $limit);?>
       </li>
     </ul>
   </nav>  
+</div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="card col-md-3 m-3" style="border-radius: 30px; box-shadow: 0px 2px 4px 0px #00000033;">
+            <div class="card-body text-center">
+                <h5 class="card-title">Add Category</h5>
+                <p class="card-text">Upload a new category to the system.</p>
+                <a href="upload_category.php" class="btn btn-primary setCatBtn">Go to Add Category</a>
+            </div>
+        </div>
+        <div class="card col-md-3 m-3" style="border-radius: 30px; box-shadow: 0px 2px 4px 0px #00000033;">
+            <div class="card-body text-center">
+                <h5 class="card-title">Delete Category</h5>
+                <p class="card-text">Remove an existing category from the system.</p>
+                <a href="delete_category.php" class="btn btn-danger setCatBtn">Go to Delete Category</a>
+            </div>
+        </div>
+        <div class="card col-md-3 m-3" style="border-radius: 30px; box-shadow: 0px 2px 4px 0px #00000033;">
+            <div class="card-body text-center">
+                <h5 class="card-title">Upload Subcategory</h5>
+                <p class="card-text">Upload a new subcategory to the system.</p>
+                <a href="upload_sub_category.php" class="btn btn-success setCatBtn">Go to Upload Subcategory</a>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 <?php include 'helper/footer.php';?>
 

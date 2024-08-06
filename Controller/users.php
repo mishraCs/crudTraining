@@ -1,5 +1,4 @@
 <?php 
-
 abstract class MakeTable {
     abstract public function createParentTable($conn, $parentTableName);
     abstract public function createChildTable($conn, $tableName, $referenceTable); // cant use private access modifier
@@ -47,12 +46,6 @@ class CascadeTable extends MakeTable {
         return $result;
     }
 }
-// $makeNewTable = new MakeNewTable();
-// $makeNewTable->createParentTable($conn, "parent_table");
-
-// $cascadeTable = new CascadeTable();
-// $cascadeTable->createChildTable($conn, "child_table", "parent_table");
-
 
 class DisplayMembersConnectionModifiers {
     private $host;

@@ -92,6 +92,13 @@ window.onload = function() {
     setTimeout(() => {
         $("#remove").hide();
     }, 7000);
+    $('input').focus(function() {
+        $(this).css('background-color', 'white'); // Background color when focus is removed
+    }).blur(function() {
+        $(this).css('background-color', '#c3d0e6'); // Background color when focused
+    });
+    
+    
 
     const btn = document.querySelector('#btn'); // sidebar js
     const sidebar = document.querySelector('.sidebar');

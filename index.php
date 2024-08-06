@@ -41,14 +41,6 @@ try {
 <!-- select latest search -->
 <script>
 function viewSubCategory(str){
-  alert(str);
-  // const categoryId = document.getElementById('categoryId').value;
-  // alert(categoryId);
-//   if (str.length==0) {
-//   document.getElementById("viewSubCategory").innerHTML="";
-//   document.getElementById("viewSubCategory").style.border="0px";
-//   return;
-// }
 var xmlhttp=new XMLHttpRequest(str);
 xmlhttp.onreadystatechange=function() {
   if (this.readyState==4 && this.status==200) {

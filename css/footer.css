@@ -3,13 +3,6 @@ html, body {
   height: 100%;
 }
 
-body {
-  font-family: "Open Sans", sans-serif;
-  display: flex;
-  flex-direction: column;
-  /* padding-top: 300px; */
-}
-
 .container {
   width: 100%;
   max-width: 1600px;

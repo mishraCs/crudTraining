@@ -12,7 +12,7 @@ if (isset($_POST['submit'])) {
 }?>
 <link rel="stylesheet" href="./css/style.css">
 <div class=" header_nav form_div">
-    <h2 class="hjk">Register Form</h2>
+    <h3>Register Form</h3>
     <form class="form-group" method="post" name="myForm" onsubmit=" return validateform()" enctype="multipart/form-data">
         <div id = "name" ><label>First Name:</label><br><span class="form_error"></span>
         <input class="form-control" type="text" id="first_name" name="first_name" value=""  required ><br></div>
@@ -32,8 +32,9 @@ if (isset($_POST['submit'])) {
         <span toggle="#confirm_password" class="fa fa-fw fa-eye field-icon toggle-password"></span><br></div>
         
         <div id = "profile_image" ><label>Profile Image:</label><br><span class="form_error"></span>
-        <input class="form-control" type="file" id="profile_image" name="profile_image"  required><br></div>
-        <button class="btn btn-success" name="submit" type="submit">Register</button>
+
+        <input class="form-control fileInpt" type="file" id="profile_image" name="profile_image"  required><br></div>
+        <button class="btn btn-primary sumbt" name="submit" type="submit">Register</button>
     </form>
 </div>
 <?php include 'helper/footer.php'; ?>

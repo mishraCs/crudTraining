@@ -66,8 +66,8 @@ include 'Controller/users.php';
                             <?php if (isset($_SESSION['user_id'])){
                                 $header_user = new ProfileUser;
                                 $row = $header_user->current_user($conn);?>
-                                <a class="header_link" href="dashboard.php"><?php echo $row['first_name']; ?></a>
-                                <img onclick="window.location.href = 'dashboard.php'" class="header_user_image" src="<?php echo $row['profile_image']; ?>">
+                                <a class="header_link user-name" href="dashboard.php"><?php echo $row['first_name']; ?></a>
+                                <img onclick="window.location.href = 'dashboard.php'" class="header_user_image" src="<?php echo $row['profile_image']; ?>" alt="userImage">
                             <?php } ?>
                         </div>
                     </nav>

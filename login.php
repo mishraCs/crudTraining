@@ -25,15 +25,29 @@ if(isset($_POST['submit'])){
     }
 }
 ?>
-<div class=" form_div ">
-    <h2>Login Form</h2>
+<div class="form_div">
+    <h3>Login Form  :</h3>
+    <p>Please Login using the link shared on your Email.</p>
     <form class="form-group" method="post" name="usrForm" id="UserForm">
         <label for="email">Email:</label>
-        <input class="form-control" type="email" id="email" name="email" required><br>
+        <input type="email" class="form-control"  id="email" name="email" required><br>
         <label for="password">Password:</label>
-        <input class="form-control" type="password" id="password" name="password" required><br>
+        <p>Please input your last correct password</p>
+        <input type="password" class="form-control"  id="password" name="password" required>
+        <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span><br>
     </form>
-    <button class="btn btn-primary" form="UserForm" name="submit" type="submit">Login</button>
+    <button class="btn btn-primary sumbt" form="UserForm" name="submit" type="submit">Login</button>
 </div>
  <?php include 'helper/footer.php';?>
+ <script type="module"> //password input 
+    $(".toggle-password").click(function() {
 
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    var input = $($(this).attr("toggle"));
+    if (input.attr("type") == "password") {
+    input.attr("type", "text");
+    } else {
+    input.attr("type", "password");
+    }
+    });
+</script>

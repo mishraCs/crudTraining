@@ -93,7 +93,7 @@ class VerifyUser {
          $_SESSION['first_name'] = $user['first_name'];
          $_SESSION['user_id'] = $user['user_id'];
         }
-        header('Location: dashboard.php');
+        header('Location: index.php');
         return 'I can not redirect';
     }else{
        return 'Try again!!';

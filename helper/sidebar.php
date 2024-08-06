@@ -2,7 +2,7 @@
     <div class="logo_content">
         <div class="logo">
             <i class="bx bxs-user"></i>
-            <div class="logo_name" onclick="alert('hello')">BluethinkPhp</div>
+            <a class="logo_name proNam" href="../index.php">BluethinkPhp</a>
         </div>
         <i class="bx bx-menu" id="btn"></i>
     </div>
