@@ -39,7 +39,7 @@ if(isset($_POST['submit'])){
     <button class="btn btn-primary sumbt" form="UserForm" name="submit" type="submit">Login</button>
 </div>
  <?php include 'helper/footer.php';?>
- <script type="module"> //password input 
+ <script type="module">
     $(".toggle-password").click(function() {
 
     $(this).toggleClass("fa-eye fa-eye-slash");

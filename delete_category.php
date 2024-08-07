@@ -13,7 +13,7 @@ if(isset($_POST['submit'])){
     //     </script>
     <?PHP }
 ?>
-<div class="form_div col-md-4">
+<div class="form_div">
     <h2>Add Category</h2>
 <form class="form-group" action="" method="post" enctype="multipart/form-data">
         <label>Select Category</label><br>
@@ -24,6 +24,6 @@ if(isset($_POST['submit'])){
             <option value="<?php echo $category['category_id'] ?>"><?php echo $category['category_name'] ?></option>
             <?php }?>
         </select><br>
-        <button class="btn btn-success" name="submit" type="submit">Submit</button>
+        <button class="btn btn-primary sumbt" name="submit" type="submit">Submit</button>
 </form>
 </div>

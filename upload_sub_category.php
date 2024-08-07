@@ -8,7 +8,7 @@ if (isset($_POST['submit'])){
      echo  UploadSubCategory::subCategoryInsert($conn);
 }
 ?>
-<div class="form_div col-md-4">
+<div class="form_div">
     <h2>Add Subcategory</h2>
     <form class="form-group" method="post" enctype="multipart/form-data">
         <label>Select Category</label><br>
@@ -30,7 +30,7 @@ if (isset($_POST['submit'])){
         <input class="form-control" type="number" name ="sub_category_price"><br>
         <label>Quantity Available</label><br>
         <input class="form-control" type="number" name="sub_category_quantity"><br>
-        <button class="btn btn-success" name="submit" type="submit">Submit</button>
+        <button class="btn btn-primary sumbt" name="submit" type="submit">Submit</button>
     </form>
 </div>
 <?php include 'helper/footer.php'; ?>

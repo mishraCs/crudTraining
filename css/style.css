@@ -4,6 +4,18 @@ body{
     display: flex;
     flex-direction: column;  
 }
+.start-align{
+  text-align: start;
+}
+.card-body{
+  padding: 0.25rem !important;
+}
+.sub-cat-view{
+  display: flex;
+}
+.row-card{
+ position: relative;
+}
 
 header{
   box-shadow: 0px 2px 4px 0px #00000033;
@@ -34,8 +46,19 @@ a.header_link:hover {
 .user-name{
   margin-top: 10px;
 }
-
+.alert{
+  text-align: center;
+  margin-left: 200px;
+  margin-right: 200px;
+  border-radius: 4px 2px 3px 15px;
+  font-size: x-large;
+  font-weight: bolder;
+  text-decoration: underline;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
 .form_div{
+  margin-top:100px;
     margin-right:auto;
     margin-left:auto;
     width: 800px;
@@ -46,7 +69,7 @@ a.header_link:hover {
     border-bottom-right-radius: 30px;
     box-shadow: 0px 2px 4px 0px #00000033;
 }
-.fileInpt{
+input[type=file] {
   padding: 4px;
 }
 .toggle-password{
@@ -55,7 +78,9 @@ a.header_link:hover {
 .sumbt{
   margin-left: 500px;
   margin-bottom: -176px !important;
-
+}
+button.btn.btn-danger.dropdown-toggle{
+  position: absolute;
 }
 .home-parent{
   margin-top: 55px;
@@ -92,6 +117,10 @@ a.header_link:hover {
     margin-right:10px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 20px;
 }
 .col_div {
   display: flex;
@@ -174,9 +203,11 @@ table{
 .category_card{
     width: none;
 }
-.categorry_view_img{
-    width:250px !important; 
-    height: 250px !important;
+.categorry_view_img {
+  width: 250px !important;
+  height: 250px !important;
+  margin: auto;
+  margin-top: 20px;
 }
 
 .category_card {
@@ -195,6 +226,7 @@ table{
     height: auto;
     border-bottom: 1px solid #ccc;
     margin-bottom: 15px;
+    transition: 0.8s ease-in-out;
   }
 
   .category_card h4 {
@@ -488,7 +520,7 @@ body {
   position: absolute;
   height: 100%;
   width: calc(100% - 78px);
-  left: 100px;
+  left: 78px;
   transition: all 0.5s ease;
   z-index: 1;
 }
@@ -529,9 +561,17 @@ body {
 
 table{
   justify-content: center;
-  text-align: center;
+  text-align-last: center;
 }
 .home-table.td{
   height:50px;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+  line-height: 3 ! important;
+  justify-content: center;
   vertical-align: center;
+  position: relative;
+}
+.viewSubCategory{
+  padding: 100px;
 }

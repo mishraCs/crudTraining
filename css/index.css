@@ -23,9 +23,11 @@ left: 50px;
 font-size: 8rem;
 position: absolute;
 font-family: "Playwrite MX", cursive;
-
-
 }
 .about_div:hover .img_text{
    opacity: 1;
+}
+.categorry_view_img:hover{
+     cursor: pointer;
+     transform: scale(1.1);
 }

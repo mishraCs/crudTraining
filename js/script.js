@@ -93,14 +93,11 @@ window.onload = function() {
         $("#remove").hide();
     }, 7000);
     $('input').focus(function() {
-        $(this).css('background-color', 'white'); // Background color when focus is removed
+        $(this).css('background-color', 'white'); 
     }).blur(function() {
-        $(this).css('background-color', '#c3d0e6'); // Background color when focused
+        $(this).css('background-color', '#c3d0e6');
     });
-    
-    
-
-    const btn = document.querySelector('#btn'); // sidebar js
+    const btn = document.querySelector('#btn');
     const sidebar = document.querySelector('.sidebar');
     const searchBtn = document.querySelector('.bx-search');
 
@@ -111,48 +108,29 @@ window.onload = function() {
     searchBtn.addEventListener('click', () => {
         sidebar.classList.toggle('active');
     });
-
-
-
     // fetch weather data
-    const temp = document.querySelector('#temp');
-    const apik = "bc6e90e079477cfea6b91eb9053b9cc0";
-    const convertion = (val) => (val - 273).toFixed(3);
+    if (!!location.href.match(/cart.php/)) {
+        const temp = document.querySelector('#temp');
+        const apik = "bc6e90e079477cfea6b91eb9053b9cc0";
+        const convertion = (val) => (val - 273).toFixed(3);
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=India&appid=${apik}`)
-        .then(res => res.json())
-        .then(data => {
-            const nameval = data['name'];
-            const descrip = data['weather'][0]['description'];
-            const tempature = data['main']['temp'];
-            const wndspeed = data['wind']['speed'];
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=India&appid=${apik}`)
+            .then(res => res.json())
+            .then(data => {
+                const nameval = data['name'];
+                const descrip = data['weather'][0]['description'];
+                const tempature = data['main']['temp'];
+                const wndspeed = data['wind']['speed'];
 
-            temp.innerHTML = `Temp: <span>${convertion(tempature)} C</span>`;
-        })
-        .catch(err => console.log('You entered the wrong city name'));
-        // document.write("You entered the wrong city name");
-
-
-        // if (!!location.href.match(/cart.php/)) {
-        //         const productInfo = new FormData();
-        //         productInfo.append("productInfo", JSON.stringify(formData));
-        //         // console.log(productInfo);
-        //         $.ajax({
-        //             type: "POST",
-        //             url: "cart.php",
-        //             data: productInfo,
-        //             cache : false,
-        //             processData: false,
-        //             contentType: false,
-        //             error: function(req, err) {
-        //                 console.log(err);
-        //             },
-        //             success: function(response) {
-        //                 console.log('Response received:', response);
-        //             }
-        //         });
-        // }
+                temp.innerHTML = `Temp: <span>${convertion(tempature)} C</span>`;
+            })
+            .catch(err => console.log('You entered the wrong city name'));
+    }
 };
+    
+    
+    
+
 
 
 

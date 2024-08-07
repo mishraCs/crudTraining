@@ -1,5 +1,4 @@
 <?php
-// include 'helper/header.php';
 include 'helper/db.php';
 if(isset($_GET['q'])){
     $categoryId = $_GET['q'];
@@ -8,28 +7,21 @@ if(isset($_GET['q'])){
     $subSqlResult = $conn->query($subSql);
     if($subSqlResult->num_rows > 0){
         while($subCategory = mysqli_fetch_assoc($subSqlResult)){?>
-        <div style="display:flex">
-            <div class=" user_info container">
-                <div class=" img_user_info col-md-5">
-                <img class="categorry_view_img" src="<?php echo $subCategory['sub_category_image'] ?>" alt="Category Image">
-                <div class="col_div">
-                <button class='btn btn-danger'>Buy Now</button>
+            <div class="card col-md-3 m-3 row-card">
+                <div class="card-body text-center">
+                    <img class="categorry_view_img" src="<?php echo $subCategory['sub_category_image'] ?>" alt="Category Image">
+                    <button class='btn btn-danger'>Buy Now</button>
+                    <button class='btn btn-primary'>Add to cart</button>
                 </div>
-                </div>
-                <div class="category_card col-md-6 ml-0 mr-0">
-                <h4>Name: <b><?php echo $subCategory['sub_category_name'] ?></b></h4>
-                <h4>Price: <b><?php echo $subCategory['sub_category_price'] ?></b></h4>
-                <h4>Quantity: <b><?php echo $subCategory['sub_category_quantity'] ?></b></h4>
-
-                <p class="card_content"><?php echo $subCategory['sub_category_description'] ?></p>
+                <div class="card-body text-center">
+                    <h4 class="card-title start-align" >Name: <b><?php echo $subCategory['sub_category_name'] ?></b></h4>
+                    <h4 class="card-title start-align" >Price: <b><?php echo $subCategory['sub_category_price'] ?></b></h4>
+                    <h4 class="card-title start-align" >Quantity: <b><?php echo $subCategory['sub_category_quantity'] ?></b></h4>
+                    <p class="card-text"><?php echo $subCategory['sub_category_description'] ?></p>
                 </div>
             </div>
-        </div>
-        
         <?php
-            
         }
     }
-
 }
 ?>

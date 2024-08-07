@@ -2,26 +2,10 @@
 html, body {
   height: 100%;
 }
-body {
-  font-family: "Open Sans", sans-serif;
-  display: flex;
-  flex-direction: column;
-  padding-top: 300px;
-}
-
 .container {
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
-}
-
-.footer {
-  position: relative;
-  padding: 3rem 0;
-  color: #fff;
-  background: #000;
-  margin-left:-22px;
-  margin-top:300px !important;
 }
 .footer__columns {
   display: flex;

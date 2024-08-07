@@ -23,9 +23,9 @@ try {
     if($latestfindCategory->num_rows > 0){
       while($Category = mysqli_fetch_assoc($latestfindCategory)){
         $categoryId = $Category['category_id'];?>
-          <div class="col-md-3 ">
+          <div class="col-md-3 blur-div">
               <div class=" img_user_info">
-                <img class="categorry_view_img" onclick="viewSubCategory('<?php echo $Category['category_id'];?>')" src="<?php echo $Category['category_image']; ?>" alt="Category Image">
+                <img class="categorry_view_img" id="scroll-up" onclick="viewSubCategory('<?php echo $Category['category_id'];?>')" src="<?php echo $Category['category_image']; ?>" alt="Category Image">
                 <input id="categoryId" type="hidden" value="<?php echo $Category['category_id']; ?>">
               </div>
           </div><?php
@@ -37,7 +37,7 @@ try {
 }
 
 ?>
-<div id="viewSubCategory"></div> // to view
+<div id="viewSubCategory" class="sub-cat-view"></div> // to view
 <!-- select latest search -->
 <script>
 function viewSubCategory(str){
@@ -51,6 +51,10 @@ xmlhttp.onreadystatechange=function() {
 xmlhttp.open("GET","viewSubCategory.php?q="+str,true);
 xmlhttp.send();
 }
+(function ($,jQuery) {
+$('#scroll-up').on('click', function() {
+    $('html, body').animate({ scrollTop: 0 }, 'slow');
+});})(jQuery);
 </script>
 <?php include 'helper/footer.php'; ?>
 

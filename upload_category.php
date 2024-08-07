@@ -1,6 +1,4 @@
 <?php
-namespace users;
-
 include 'helper/header.php';
 
 if ($_SESSION['admin_id'] != 1) {
@@ -10,11 +8,16 @@ if ($_SESSION['admin_id'] != 1) {
 
 if (isset($_POST['submit'])){
     $data = new CategoryInsert;
-    echo $data->uploadCategory();
+    $data = $data->uploadCategory();
+    if(isset($data)){
+        ?><div class="alert alert-danger form-div" role="alert">
+        <?php echo $data."<br>"; ?>
+        </div> <?php
+    }
 }
 ?>
 
-<div class="form_div col-md-4">
+<div class="form_div">
     <h2>Add Category</h2>
     <form class="form-group" method="post" enctype="multipart/form-data">
         <label>Category Name</label>
@@ -23,6 +26,6 @@ if (isset($_POST['submit'])){
         <input class="form-control" type="file" id="category_image" name="category_image" required><br>
         <label>Description</label><br>
         <textarea class="form-control" name="category_description" id="category_text"></textarea><br>
-        <button class="btn btn-success" name="submit" type="submit">Submit</button>
+        <button class="btn btn-primary sumbt" name="submit" type="submit">Submit</button>
     </form>
 </div>

@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
         
         <div id = "profile_image" ><label>Profile Image:</label><br><span class="form_error"></span>
 
-        <input class="form-control fileInpt" type="file" id="profile_image" name="profile_image"  required><br></div>
+        <input class="form-control" type="file" id="profile_image" name="profile_image"  required><br></div>
         <button class="btn btn-primary sumbt" name="submit" type="submit">Register</button>
     </form>
 </div>

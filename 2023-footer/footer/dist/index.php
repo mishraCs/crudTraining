@@ -82,7 +82,7 @@
           <ul class="footer__nav-list">
             <li class="footer__nav-item">
               <a href="mailto:contact.laboiserie@gmail.com" class="footer__nav-link">
-                mishrathink0096@gmail.com
+                aakashthink0096@gmail.com
               </a>
             </li>
           </ul>

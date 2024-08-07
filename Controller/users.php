@@ -214,7 +214,7 @@ Trait Upload{
                     return "Invalid file type. Only JPEG, JPG, AVIF, and PNG are allowed.";
                 }
             } catch (Exception $e) {
-                return "Error: " . $e->getMessage();
+                return "Message : " . $e->getMessage();
             }
         } else {
             return "Please upload an image.";
@@ -238,6 +238,7 @@ Trait Upload{
         }
     }
 }
+
 class CategoryInsert extends CreateConnection{
     use Upload;
 }
