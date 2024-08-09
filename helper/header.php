@@ -22,7 +22,7 @@ include 'Controller/users.php';
     <!-- localscript -->
     <script src="js/script.js"></script>
     <script src="js/Cookie.js"></script>
-    <!-- sidebar link -->
+    <script src="js/index.js" type="text/babel"></script>
     <script type="text/javascript">
         var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
         (function(){
@@ -37,7 +37,7 @@ include 'Controller/users.php';
 </head>
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script> 
     <script> // category
         $(document).ready(function(){
@@ -56,7 +56,7 @@ include 'Controller/users.php';
                 <div class="header_nav">
                     <nav class="header_element">
                         <?php if (isset($_SESSION['user_id'])): ?>
-                            <a class="header_link" href="home.php">Home</a>
+                            <a id="hello-admin" class="header_link" href="home.php">Home</a>
                             <a class="header_link" href="index.php" alt="click">About</a>
                             <a class="header_link" href="cart.php" alt="click">MyCart</a>
                         <?php else: ?>

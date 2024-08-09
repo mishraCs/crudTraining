@@ -2,6 +2,7 @@ google-login-in-php/
 vendor/
 phpmailer_smtp/
 uploads/
+react/
 variable.php
 db.php
 termsofservice.php

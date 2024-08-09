@@ -88,15 +88,29 @@ function showCategory(str) {
     xmlhttp.send();
 }
 
+function viewSubCategory(str) {
+    let xmlhttp = new XMLHttpRequest();  
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            document.getElementById("viewSubCategory").innerHTML = this.responseText;
+            document.getElementById("viewSubCategory").style.border = "1px solid #A5ACB2";
+        }
+    };
+    xmlhttp.open("GET", "viewSubCategory.php?q=" + str, true);
+    xmlhttp.send();
+}
+
 window.onload = function() {
     setTimeout(() => {
-        $("#remove").hide();
+        $("#remove").hide(); 
     }, 7000);
+
     $('input').focus(function() {
         $(this).css('background-color', 'white'); 
     }).blur(function() {
         $(this).css('background-color', '#c3d0e6');
     });
+
     const btn = document.querySelector('#btn');
     const sidebar = document.querySelector('.sidebar');
     const searchBtn = document.querySelector('.bx-search');
@@ -108,11 +122,11 @@ window.onload = function() {
     searchBtn.addEventListener('click', () => {
         sidebar.classList.toggle('active');
     });
-    // fetch weather data
+
     if (!!location.href.match(/cart.php/)) {
         const temp = document.querySelector('#temp');
         const apik = "bc6e90e079477cfea6b91eb9053b9cc0";
-        const convertion = (val) => (val - 273).toFixed(3);
+        const convertion = (val) => (val - 273.15).toFixed(1); 
 
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=India&appid=${apik}`)
             .then(res => res.json())
@@ -126,11 +140,55 @@ window.onload = function() {
             })
             .catch(err => console.log('You entered the wrong city name'));
     }
-};
-    
-    
-    
 
+   
+    if (document.getElementById("chk-avl")) {
+        document.getElementById("chk-avl").addEventListener("click", function(event) {
+            console.log('chk-avl');
+        });
+    }
+};
+document.addEventListener("DOMContentLoaded", function() {
+    document.body.addEventListener("click", function(event) {
+        if (event.target && event.target.id === "scroll-up") {
+            window.scrollTo({
+                top: document.body.scrollHeight, 
+                behavior: 'smooth'  
+            });
+        }
+    });
+    document.body.addEventListener("click", function(event) {
+        if (event.target && event.target.id === "chk-avl") {
+            window.location.href = 'BuyForm.php';
+        }
+    });
+});
+function togglePermanentAddress() {
+    const permanentFields = document.getElementById('permanent_address_fields');
+    const checkbox = document.getElementById('same_as_permanent');
+    if (checkbox.checked) {
+        checkbox.style.display = 'none';
+        permanentFields.style.display = 'block';
+    } else {
+        permanentFields.style.display = 'none';
+    }
+}
+
+function validateForm() {
+    const form = document.forms['purchaseForm'];
+    const formData = new FormData(form);
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'serverBuy.php', true);
+    xhr.onload = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            alert('Success');
+        } else {
+            alert('Failed');
+        }
+    };
+    xhr.send(formData);
+    return console.log('hello');
+}
 
 
 

@@ -695,4 +695,41 @@ Object from Entries () converts an array of key-value pairs into an object.
 
 Object.prevent Extensions(object), It marks an object as non-extensible.
 
+Creating an Array with a Specific Length:
+It seems there’s a typo in your code snippet. It should be Array.from({ length: 5 }) instead of Array.form({ length: 5 }). The Array.from() method creates a new array with the specified length, filled with undefined values.
+Composer.lock:
+The composer.lock file is essential for managing dependencies in PHP projects. It records the exact versions of packages installed. When you run composer install, it ensures consistency across team members by installing the specified versions. Committing this file to version control (e.g., Git) maintains consistency.
+Think of it as a “snapshot” of your project’s dependencies.
+React Setup with create-react-app:
+To create a new React app, use npx create-react-app my-app.
+Then navigate to the app directory with cd my-app.
+Start the development server using npm start.
+For production, create a minified bundle with npm run build.
+Node.js:
+Node.js is a server-side JavaScript runtime environment.
+It allows running JavaScript on the server, making it suitable for scalable web applications, real-time apps, and APIs.
+Key features include being built on Chrome’s V8 engine, non-blocking event-driven architecture, and excellent performance for real-time applications.
+ES7, React, Redux, GraphQL, React Native:
+ES7 (ECMAScript 2016) is an evolution of JavaScript, introducing features like async/await.
+React, Redux, and GraphQL are popular tools for building web applications.
+React Native extends React to build mobile apps.
+
+
+The readyState property of an  XMLHttpRequest object represents the state of the request it changes as the request progress through different stages.
+here are the possible "readyState values"
+0=> Server connection established yet.
+1=> Server connection established (the open () method has beeb called.)
+2=> Request received (headers and data are being processed).
+3=> Processing request (loading data).
+4=> Request finished and response is ready (the entire response has been recived).
+When readyState is 4 it means the response is fully ready to be processed.
+2. this.status === 200
+
+The status property represents the HTTP status code returned by the server. A status code of 200 indicates a successfulresponse (usually "ok").
+Other common status code include.
+404: Page not found 
+500: Server error 
+302: Redirect
+201: Created (for successful Post request).
+
 

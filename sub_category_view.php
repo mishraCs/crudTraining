@@ -8,7 +8,7 @@ if (!empty($_GET['subCategoryId'])) {
 <div class="card col-md-3 m-3">
   <div class="card-body text-center">
     <img id="sub_category_id" class="categorry_view_img" src="<?php echo $subCategory['sub_category_image'] ?>" alt="Category Image cpadsfd">
-    <button class='btn btn-danger'>Buy Now</button>
+    <button class='btn btn-danger' onclick="buyProduct(<?php echo $subCategory['sub_category_id'] ?>)">Buy Now</button>
     <button onclick="addAsCookie()" class='btn btn-success'>Add to cart</button>
   </div>
   <?php $subCategoryId = $_GET['subCategoryId'];

@@ -19,6 +19,8 @@ if(strpos($urlHome, "home.php")){?>
  echo "You can't access this footer";
 }
 ?>
+       
+
 
 
 

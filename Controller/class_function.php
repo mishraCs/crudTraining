@@ -169,7 +169,7 @@ class AddUser{
         $name = $_FILES["profile_image"];
         $target_file = $target_dir . basename($name["name"]);
         $fileExtension = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-        if ($fileExtension === 'jpg' || $fileExtension === 'jpeg' || $fileExtension === 'png') {
+        if ($fileExtension === 'jpg' || $fileExtension === 'jpeg' || $fileExtension === 'png' || $fileExtension === 'avif') {
             move_uploaded_file($_FILES["profile_image"]["tmp_name"], $target_file);
             $sql = "INSERT INTO users (first_name, last_name, email, user_password, profile_image) VALUES ('$first_name', '$last_name', '$email', '$password', '$target_file')";
             if ($conn->query($sql) === TRUE) {
