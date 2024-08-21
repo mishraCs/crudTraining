@@ -1,14 +1,12 @@
 <?php
-include 'helper/header.php';
-
+Include 'HtDocs/Views/Frontend/Header.php';
 if ($_SESSION['admin_id'] != 1) {
     header('location: login.php');
     exit();
 }
 
 if (isset($_POST['submit'])){
-    $data = new CategoryInsert;
-    $data = $data->uploadCategory();
+    $data = $CategoryObj->uploadCategory();
     if(isset($data)){
         ?><div class="alert alert-danger form-div" role="alert">
         <?php echo $data."<br>"; ?>

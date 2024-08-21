@@ -1,0 +1,31 @@
+.heading-Cart {
+    color: green;
+    margin-bottom: 2px;
+    border-bottom: 2px solid black;
+    box-shadow: 0 2px 4px black; 
+    text-align: center;
+}
+.card-body {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+#product-img {
+    height: 180px;
+    width: 180px;
+    position: inherit;
+    margin:0px;
+    padding:0px;
+}
+h1#product-nm,#product-rs  {
+    font-size: 16px;
+}
+div#product-container {
+    margin-left: 2px;
+
+}
+div#product-container {
+    margin-left: 2px;
+    margin-bottom:5px;
+}

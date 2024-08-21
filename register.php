@@ -1,9 +1,7 @@
 <?php
-
-include 'helper/header.php'; 
+include 'HtDocs/Views/Frontend/Header.php';
 if (isset($_POST['submit'])) {
-    $register = new AddUser;
-    $registerMessage = $register->register_user($conn);
+    $registerMessage = $User->register_user();
     if(isset($registerMessage)){
         ?> <div class="alert alert-danger" role="alert">
         <?php echo $registerMessage."<br>"; ?>
@@ -37,7 +35,7 @@ if (isset($_POST['submit'])) {
         <button class="btn btn-primary sumbt" name="submit" type="submit">Register</button>
     </form>
 </div>
-<?php include 'helper/footer.php'; ?>
+<?php include 'HtDocs/Views/Frontend/Footer.php'; ?>
 
 <script type="module"> //password input 
     $(".toggle-password").click(function() {
@@ -51,5 +49,4 @@ if (isset($_POST['submit'])) {
     }
     });
 </script>
-<script src="./js/script.js"></script> 
 

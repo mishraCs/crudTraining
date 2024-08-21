@@ -1,13 +1,14 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 ob_start();
-include 'helper/header.php'; 
+include 'HtDocs/Views/Frontend/Header.php';
 if (isset($_SESSION['user_id'])) {
-    header('Location: home.php');
+    header('Location: Index.php');
     exit();
 }
-$login = new VerifyUser;
 if(isset($_GET['email']) && isset($_GET['active'])){
-    $result = $login->verify_email($conn);
+    $result = $User->verify_email();
     if(isset($result)){
         ?> <div class="alert alert-danger" role="alert">
         <?php echo $result."<br>"; ?>
@@ -17,7 +18,7 @@ if(isset($_GET['email']) && isset($_GET['active'])){
 if(isset($_POST['submit'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
-   $result =  $login->login($conn);
+   $result =  $User->login();
    if(isset($result)){
         ?> <div class="alert alert-danger" role="alert">
         <?php echo $result."<br>"; ?>
@@ -38,7 +39,7 @@ if(isset($_POST['submit'])){
     </form>
     <button class="btn btn-primary sumbt" form="UserForm" name="submit" type="submit">Login</button>
 </div>
- <?php include 'helper/footer.php';?>
+<?php include 'HtDocs/Views/Frontend/Footer.php'; ?>
  <script type="module">
     $(".toggle-password").click(function() {
 

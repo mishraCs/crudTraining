@@ -1,21 +1,22 @@
 <?php
-include 'helper/header.php'; 
-if(isset($_SESSION['admin_id']) != 1){
-    header('location:login.php') ;
-    exit();
+include 'HtDocs/Views/Frontend/Header.php';
+if(isset($_SESSION['admin_id']) === 1){
+  $check = $_SESSION['admin_id'];;
+  header('location:login.php');
+  exit();
 }
-$limit =2; 
+$limit = 2; 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
-$startFrom = ($page-1) * $limit; 
-$sql = "SELECT * FROM users LIMIT $startFrom, $limit";
-$result = $conn->query($sql);
-$sqlTotal = "SELECT COUNT(*) FROM users";
-$resultTotal = $conn->query($sqlTotal);
-$totalRecords = $resultTotal->fetch_array()[0];
-$totalPages = ceil($totalRecords / $limit);?>
+$startFrom = ($page - 1) * $limit;
+$users = $User->getUsers($limit, $startFrom);
+$totalRecords = $User->getTotalUserCount();
+$totalPages = $User->calculateTotalPages($totalRecords, $limit);
+?>
 <div class="home-parent justify-content:center">
-<div class="container ">
-  <h2>User List</h2>
+<div class="container col-md-12 ">
+  <div class="form-header col-md-11">
+    <h2 class="info-heading"><b>User List</b></h2>
+  </div>
   <table class="table table-bordered home-table">
       <thead>
           <tr>
@@ -27,8 +28,8 @@ $totalPages = ceil($totalRecords / $limit);?>
           </tr>
       </thead>
       <tbody>
-      <?php if ($result->num_rows > 0) {
-          while($row = $result->fetch_assoc()) {?>
+      <?php if (!empty($users)) {
+          foreach($users as $row) { ?>
               <tr>
                   <td class="home-table"><?php echo $row['first_name']; ?></td>
                   <td><?php echo $row['last_name']; ?></td>
@@ -37,7 +38,7 @@ $totalPages = ceil($totalRecords / $limit);?>
                   <td>
                     <div class="btn-group">
                       <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
-                      <div class="dropdown-menu pointer">
+                      <div class="dropdown-menu pointer home-action-link">
                       <a class="dropdown-item" href="view.php?user_id=<?php echo $row['user_id']; ?>">View</a>
                         <a class="dropdown-item" href="update.php?user_id=<?php echo $row['user_id']; ?>">Update</a>
                         <a class="dropdown-item" type="btn" data-toggle="modal" data-target="#deletemodal">Delete</a>
@@ -87,12 +88,12 @@ $totalPages = ceil($totalRecords / $limit);?>
     </ul>
   </nav>  
 </div>
-<div class="container mt-5">
+<div class="container mt-12 col-md-12">
     <div class="row justify-content-center">
         <div class="card col-md-3 m-3" style="border-radius: 30px; box-shadow: 0px 2px 4px 0px #00000033;">
             <div class="card-body text-center">
                 <h5 class="card-title">Add Category</h5>
-                <p class="card-text">Upload a new category to the system.</p>
+                <p class="card-text">Upload a new category to the system, Its may be a new thing for user.</p>
                 <a href="upload_category.php" class="btn btn-primary setCatBtn">Go to Add Category</a>
             </div>
         </div>
@@ -113,6 +114,4 @@ $totalPages = ceil($totalRecords / $limit);?>
     </div>
 </div>
 </div>
-<?php include 'helper/footer.php';?>
-
-
+<?php include 'HtDocs/Views/Frontend/Footer.php'; ?>

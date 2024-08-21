@@ -1,29 +1,32 @@
 <?php
-namespace users;
-
-include 'helper/header.php';
-ob_start();
-if(isset($_POST['submit'])){
-       $data = new DeCategory;
-       echo $data->deleteCategory();
-        //header('Location:home.php?successfullydelete');
-    //     ?>
-       <script>
-    //         window.location.replace('home.php?msg=data have been deleted succesfully');
-    //     </script>
-    <?PHP }
+include 'HtDocs/Views/Frontend/Header.php';
+if (isset($_POST['submit'])) {
+    $categoryAction = $CategoryObj->deleteCategory();
+    if (isset($categoryAction)) {
+        ?>
+        <div class="alert alert-danger form-div" role="alert">
+            <?php echo $categoryAction . "<br>"; ?>
+        </div>
+        <?php
+    }
+}
+$allCategory = $CategoryObj->selectCategory();
 ?>
 <div class="form_div">
-    <h2>Add Category</h2>
-<form class="form-group" action="" method="post" enctype="multipart/form-data">
+    <h2>Delete Category</h2>
+    <form class="form-group" action="" method="post" enctype="multipart/form-data">
         <label>Select Category</label><br>
         <select name="category_select">
-            <?php $sql = "SELECT *FROM category";
-            $result = $conn->query($sql);
-            while($category = mysqli_fetch_assoc($result)){?><br>
-            <option value="<?php echo $category['category_id'] ?>"><?php echo $category['category_name'] ?></option>
-            <?php }?>
+            <?php 
+            if (is_array($allCategory)) {
+                foreach ($allCategory as $category) { ?>
+                    <option value="<?php echo $category['category_id']; ?>"><?php echo $category['category_name']; ?></option>
+                <?php }
+            } else { ?>
+                <option value="">Error loading categories</option>
+            <?php } ?>
         </select><br>
         <button class="btn btn-primary sumbt" name="submit" type="submit">Submit</button>
-</form>
+    </form>
 </div>
+<?php include 'HtDocs/Views/Frontend/Footer.php'; ?>

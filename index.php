@@ -1,8 +1,4 @@
-<?php include 'helper/header.php';
-if(isset($_SESSION['admin_id']) != 1){
-  header('location:login.php') ;
-  exit();
-}?>
+<?php include 'HtDocs/Views/Frontend/Header.php';?>
 <link rel="stylesheet" href="./css/index.css">
 <div class="about_div">
   <img class="banner_img" src="File/cloud.jpeg">
@@ -13,28 +9,54 @@ if(isset($_SESSION['admin_id']) != 1){
 <h1>Customers like these <b><i>category</i></b></h1>
 <?php 
 try {
-  $sql = "SELECT latest_search_category FROM latest_search ORDER BY latest_search_category DESC LIMIT 5";
-  $result = $conn->query($sql);
-  while($category = mysqli_fetch_assoc($result)){
-    $category = $category['latest_search_category'];
-    $stringSql = "SELECT * FROM category WHERE category_name = '$category'";
-    $latestfindCategory = $conn->query($stringSql);
-    if($latestfindCategory->num_rows > 0){
-      while($Category = mysqli_fetch_assoc($latestfindCategory)){
-        $categoryId = $Category['category_id'];?>
-          <div class="col-md-3 blur-div">
-              <div class="img_user_info">
-                <img class="categorry_view_img" id="scroll-up" onclick="viewSubCategory('<?php echo $Category['category_id'];?>')" src="<?php echo $Category['category_image']; ?>" alt="Category Image">
-                <input id="categoryId" type="hidden" value="<?php echo $Category['category_id']; ?>">
-              </div>
-          </div><?php
-      }
+    $latestCategories = $LatestCategory->LatestCategory();
+    foreach ($latestCategories as $category) {
+        $categoryName = $category['latest_search_category'];
+        $latestCategoryInfo = $CategoryObj->selectCategoryByName($categoryName);
+            foreach($latestCategoryInfo as $Category) {
+                $categoryId = $Category['category_id']; ?>
+                <div class="col-md-3 blur-div">
+                    <div class="img_user_info">
+                        <img 
+                            class="categorry_view_img" 
+                            id="scroll-up" 
+                            onclick="viewSubCategory('<?php echo $Category['category_id']; ?>')" 
+                            src="<?php echo $Category['category_image']; ?>" 
+                            alt="Category Image"
+                        >
+                        <input id="categoryId" type="hidden" value="<?php echo $Category['category_id']; ?>">
+                    </div>
+                </div>
+                <?php
+            }
     }
-  }
 } catch (\Throwable $th) {
-  echo $th->getmessage();
-}?>
-
+    echo "Error: " . $th->getMessage();
+}
+?>
 <div id="viewSubCategory" class="sub-cat-view"></div>
-<img class="banner_img" src="File/cloud.jpeg">
-<?php include 'helper/footer.php'; ?>
+<!-- Modal add-pro-cookie -->
+<div class="modal fade cart-add-product add-cart-modal" id="successModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">Product add at cart</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal add-pro-cookie -->
+ <!-- Modal already-add -->
+<div class="modal fade cart-add-product add-cart-modal" id="already-add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">Product already add in cart</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal already-add -->
+<?php include 'HtDocs/Views/Frontend/Footer.php'; ?>

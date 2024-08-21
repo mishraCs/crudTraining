@@ -1,28 +1,45 @@
-<?php include 'helper/header.php';
-$crentUser = new ProfileUser;
-$user = $crentUser->current_user($conn);
-?>
-<div class="form-div col-md-11">
+<?php include 'HtDocs/Views/Frontend/Header.php';
+if (isset($_SESSION['user_id'])){
+    $userId = $_SESSION['user_id'];
+    $row = $User->displayLoginUser($userId);
+
+    if (isset($_GET['subCategoryId'])){
+        $subCategoryId = $_GET['subCategoryId'];
+        // echo $subCategoryId."<br>";
+        $subSqlResult = $SubCategoryObj->subCategoryView($subCategoryId);
+?>        
+<div class="form-div col-md-12">
+    <div class="card col-md-2.5 m-2.5 row-card view-sub-category_card">
+        <div class="card-body text-center img_user_info low-width">
+            <img id="sub_category_img" class="categorry_view_img" src="<?php echo $subSqlResult['sub_category_image']; ?>" alt="Category Image">
+        </div>
+        <div class="card-body text-center low-width view-sub-category_body ">
+            <h4 class="card-title start-align">Name: <b id="sub_category_name"><?php echo $subSqlResult['sub_category_name']; ?></b></h4>
+            <h4 class="card-title start-align">Price: <b id="sub_category_price"><?php echo $subSqlResult['sub_category_price']; ?></b></h4>
+            <h4 class="card-title start-align">Quantity: <b id="sub_category_quantity"><?php echo $subSqlResult['sub_category_quantity']; ?></b></h4>
+            <p class="card-text"><?php echo $subSqlResult['sub_category_description']; ?></p>
+        </div>
+    </div><?php }?>
     <div class="form-header col-md-11">
         <h3>Purchase Form</h3>
         <p>Please fill in your details as per your Aadhaar or government ID</p>
     </div>
-    <div class="form-body">
-        <form class="form-group" method="post" name="purchaseForm" onsubmit="return validateForm()" enctype="multipart/form-data">
+    <div class="form-body"><!--onsubmit="returnvalidateBuyForm()" -->
+        <form class="form-group" method="post" name="purchaseForm" id="BuyForm"  enctype="multipart/form-data">
             <div class="col-md-5">
                 <label for="first_name">First Name:</label>
                 <span class="form_error"></span>
-                <input class="form-control" type="text" id="first_name" name="first_name" value="<?php echo $user['first_name'] ?>" required>
+                <input class="form-control" type="text" id="first_name" name="first_name" value="<?php echo $row['first_name'] ?>" required>
             </div>
             <div class="col-md-5">
                 <label for="last_name">Last Name:</label>
                 <span class="form_error"></span>
-                <input class="form-control" type="text" id="last_name" name="last_name" value="<?php echo $user['last_name'] ?>" required>
+                <input class="form-control" type="text" id="last_name" name="last_name" value="<?php echo $row['last_name'] ?>" required>
             </div>
             <div class="col-md-5">
                 <label for="email">Email:</label>
                 <span class="form_error"></span>
-                <input class="form-control" type="email" id="email" name="email" value="<?php echo $user['email'] ?>" required>
+                <input class="form-control" type="email" id="email" name="email" value="<?php echo $row['email'] ?>" required>
             </div>
             <div class="col-md-5">
                 <label for="phone">Phone Number:</label>
@@ -92,9 +109,12 @@ $user = $crentUser->current_user($conn);
                 </label>
             </div>
             <div class="smbtBuy col-md-10">
-                <button class="btn btn-primary smbtBuyBtn" name="submit" type="submit">Buy</button>
+                <button class="btn btn-primary smbtBuyBtn" name="submit" id="buy-form-btn" type="submit">Buy</button>
             </div>
         </form>
     </div>
 </div>
-<h1>welcome</h1>
+<?php include 'HtDocs/Views/Frontend/Footer.php';
+}else{
+    header('Location:login.php');
+} ?>

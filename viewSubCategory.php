@@ -1,27 +1,31 @@
 <?php
-include 'helper/db.php';
-if(isset($_GET['q'])){
+require_once 'HtDocs/Controller/CreateConnection.php';
+
+require_once 'HtDocs/Controller/SubCategory.php';
+
+$subCategoryObj = new \Controller\SubCategory();
+if (isset($_GET['q'])) {
     $categoryId = $_GET['q'];
-    // echo $categoryId; 
-    $subSql = "SELECT * FROM sub_category WHERE category_id = '$categoryId'";
-    $subSqlResult = $conn->query($subSql);
-    if($subSqlResult->num_rows > 0){
-        while($subCategory = mysqli_fetch_assoc($subSqlResult)){?>
-            <div class="card col-md-2.5 m-2.5 row-card">
-                <div class="card-body text-center img_user_info low-width">
-                    <img class="categorry_view_img" src="<?php echo $subCategory['sub_category_image'] ?>" alt="Category Image">
-                    <button class="btn btn-danger" id="chk-avl">Buy Now</button>
-                    <a id="bbb" class='btn btn-primary'onclick="addToCart(<?php echo $categoryId ?>)">Add to cart</a>
-                </div>
-                <div class="card-body text-center low-width">
-                    <h4 class="card-title start-align" >Name: <b><?php echo $subCategory['sub_category_name'] ?></b></h4>
-                    <h4 class="card-title start-align" >Price: <b><?php echo $subCategory['sub_category_price'] ?></b></h4>
-                    <h4 class="card-title start-align" >Quantity: <b><?php echo $subCategory['sub_category_quantity'] ?></b></h4>
-                    <p class="card-text"><?php echo $subCategory['sub_category_description'] ?></p>
-                </div>
+    $subCategory = $subCategoryObj->selectSubCategoryByName($categoryId);
+    foreach ($subCategory as $subSqlResult) { ?>
+        <div class="card col-md-2.5 m-2.5 row-card view-sub-category_card">
+            <div class="card-body text-center img_user_info low-width">
+                <img id="sub_category_img" class="categorry_view_img" src="<?php echo $subSqlResult['sub_category_image']; ?>" alt="Category Image">
+                <!-- <button class="btn btn-danger" id="chk-avl">Buy Now</button>id="chk-avl" -->
+                <!-- <button class="btn btn-danger"  onclick="window.location.href = 'BuyForm.php?subCategoryId='<?php //echo $subSqlResult['sub_category_id'] ?>;">Buy Now</button> -->
+                <button class="btn btn-danger" onclick="window.location.href = 'BuyForm.php?subCategoryId=<?php echo $subSqlResult['sub_category_id']; ?>'">Buy Now</button>
+
+                <a id="bbb" class='btn btn-primary' onclick="addAsCookie()">Add to cart</a>
+                <h1 id="subCategoryId" style="display:none"><?php echo $subSqlResult['sub_category_id'] ?></h1>
             </div>
-        <?php
-        }
+            <div class="card-body text-center low-width view-sub-category_body ">
+                <h4 class="card-title start-align">Name: <b id="sub_category_name"><?php echo $subSqlResult['sub_category_name']; ?></b></h4>
+                <h4 class="card-title start-align">Price: <b id="sub_category_price"><?php echo $subSqlResult['sub_category_price']; ?></b></h4>
+                <h4 class="card-title start-align">Quantity: <b id="sub_category_quantity"><?php echo $subSqlResult['sub_category_quantity']; ?></b></h4>
+                <p class="card-text"><?php echo $subSqlResult['sub_category_description']; ?></p>
+            </div>
+        </div>
+    <?php
     }
 }
 ?>

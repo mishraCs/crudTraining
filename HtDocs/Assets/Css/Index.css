@@ -1,0 +1,45 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+MX:wght@100..400&display=swap');
+
+
+.area_info{
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+}
+.about_div{
+    position: relative;
+    margin-left: -10px !important;
+}
+.img_text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0;
+    transition: 0.6s;
+    bottom: 5%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    left: 50px;
+    bottom: 50px;
+    font-size: 5rem;
+    position: absolute;
+    font-family: "Playwrite MX", cursive;
+}
+.about_div:hover .img_text{
+   opacity: 1;
+}
+.img-user-info{
+ margin: 0px !important;
+}
+.categorry_view_img:hover{
+     cursor: pointer;
+     transform: scale(1.1);
+}
+.card-body{
+    margin: 0px !important;
+}
+.row-card {
+    padding-left: 0px;
+    padding-right: 0px;
+}
