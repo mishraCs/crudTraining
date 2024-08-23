@@ -732,4 +732,40 @@ Other common status code include.
 302: Redirect
 201: Created (for successful Post request).
 
+const existingCookie = document.cookie.split('; ').find(row => row.startsWith('product='));:
+Here’s what each part does:
+document.cookie: This property returns a string containing all the cookies associated with the current document.
+.split('; '): This splits the cookie string into an array of individual cookie strings, using ;  (semicolon followed by a space) as the delimiter.
+.find(row => row.startsWith('product=')): This searches through the array of cookie strings to find the first one that starts with 'product='.
+The .startsWith('product=') method checks if the cookie string begins with the specified substring 'product='.
+If found, the existingCookie variable holds the entire cookie string (e.g., "product=[...]";).
+if (existingCookie) { ... }:
+This conditional block executes only if an existing cookie with the name “product” is found.
+If no such cookie exists, the code inside the block won’t run.
+const existingValue = existingCookie.split('=')[1];:
+This line extracts the value part of the cookie.
+existingCookie.split('=') splits the cookie string into an array using the equal sign (=) as the delimiter.
+[1] retrieves the second element of the resulting array, which corresponds to the value part of the cookie (e.g., "[{...}]").
+products = JSON.parse(existingValue);:
+This line parses the value (which is a JSON string) into a JavaScript object.
+JSON.parse(existingValue) converts the JSON string back into an array of products (assuming the value was previously stored as JSON).
+
+UTF-16 Code Unit (charCodeAt()): and Full Unicode Code Point (codePointAt()):
+localcomare of two string :
+const arrayob = [
+    "It",
+    "prevents",
+    "unexpected",
+    "sorting",
+    "results",
+    "due",
+    "to",
+    "locale-specific",
+    "characters."
+];
+// Sort the array alphabetically using localeCompare()
+arrayob.sort((a, b) => a.localeCompare(b));
+console.log(arrayob);
+The match() method returns an array of matches.
+The search() method returns the position of the first match.
 

@@ -1,26 +1,6 @@
 <?php 
 ob_start();
-
 session_start();
-// require_once realpath(__DIR__ . '/../../Controller/DbConnectionController.php');
-// $dbcon =  realpath(__DIR__ . '/../../Controller/DbConnectionController.php');
-
-// echo "File pathInc dbcon : " . $dbcon . "<br>";
-
-
-//   require_once realpath(__DIR__ . '/../../Controller/User.php');
-
-//   require_once realpath(__DIR__ . '/../../Controller/CategoryController.php');
-
-//   require_once realpath(__DIR__ . '/../../Controller/SubCategoryController.php');
-
-//   require_once realpath(__DIR__ . '/../../Controller/SearchController.php');
-
-//   require_once realpath(__DIR__ . '/../../Controller/CartController.php');
-
-// $UserUpdateInc =  realpath(__DIR__ . '/../../Controller/UserUpdate.php');
-// echo "File path Inc userupdate: " . $UserUpdateInc . "<br>";
-
 spl_autoload_register(function ($class) {
   $baseDir = $_SERVER['DOCUMENT_ROOT'] . '/MyCode/CRUD/HtDocs/';
   $relativeClass = str_replace('\\', '/', $class);
@@ -31,42 +11,14 @@ spl_autoload_register(function ($class) {
       echo "File not found: " . $filePath . "<br>";
   }
 });
-
-
-
-
-
 $UserUpdate = new \Controller\UserUpdate();
-// //  var_dump($UserUpdate);
 $User = new \Controller\User();
 $LatestCategory = new \Controller\Search();
 $CategoryObj = new \Controller\Category();
 $SubCategoryObj = new \Controller\SubCategory();
 $CartCategory = new \Controller\CategoryCart();
 ?>
-<!-- Modal IndependenseDayPopup -->
-  <!-- <div class="personal-modal modal fade cart-add-product add-cart-modal" id="DayPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-body">
-        <?php
-          // if (isset($_SESSION['user_id'])){
-          //     $userId = $_SESSION['user_id'];
-          //     $row = $User->displayLoginUser($userId);?>
-          <a class="header_link user-name" href="dashboard.php">Happy Independense Day Mr. <?php //echo $row['first_name']; ?></a>
-          <?php// } ?></div>
-        <div class="modal-footer">
-          <img class="pop-logo" src="https://bluethinkinc.com/wp-content/uploads/2021/12/bluethinkinc-logo-final.png" alt="blue-logo">
-          <button type="button" class=" button-star btn btn-primary" data-dismiss="modal">Thanks
-              <div class="star"></div>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div> -->
-<!-- Modal IndependenseDayPopup -->
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -83,7 +35,7 @@ $CartCategory = new \Controller\CategoryCart();
     <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet"/>
     <script src="HtDocs/Assets/js/Script.js"></script>
     <script src="HtDocs/Assets/js/Cookie.js"></script>
-    <script src="HtDocs/Assets/js/CookiSubCat.js"></script>
+    <!-- <script src="HtDocs/Assets/js/CookiSubCat.js"></script> -->
     <script src="HtDocs/Assets/js/Index.js" type="text/babel"></script>
     <!-- footer home -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
@@ -101,18 +53,16 @@ $CartCategory = new \Controller\CategoryCart();
       <div class="logo"> <?php if (isset($_SESSION['user_id'])){
           $userId = $_SESSION['user_id'];
           $row = $User->displayLoginUser($userId);?>
-          <!-- <script> IndependenseDayPopup();</script> -->
         <a class="header_link user-name" href="dashboard.php"><?php echo $row['first_name']; ?></a>
-        <img onclick="window.location.href = 'dashboard.php'" class="header_user_image" src="<?php echo $row['profile_image']; ?>" alt="userImage">
+        <img onclick="ProfilePopup()" class="header_user_image" src="<?php echo $row['profile_image']; ?>" alt="userImage">
         <?php } ?>
       </div>
       <input type="checkbox" id="menu-toggle">
       <label for="menu-toggle" class="menu-icon">&#9776;</label>
       <ul class="menu"><?php if (isset($_SESSION['user_id'])): ?>
-        <!-- <li><a id="hello-admin" class="header_link" href="../../MyCode/CRUD/HtDocs/Controller/">Admin Page</a></li> -->
         <li><a id="hello-admin" class="header_link" href="home.php">Admin Page</a></li>
         <li><a class="header_link" href="index.php" alt="click">Index</a></li>
-        <li><a class="header_link" href="Cart.php" alt="click">MyCart</a></li>
+        <li><a class="header_link" href="cart.php" alt="click">MyCart</a></li>
         <?php else: ?>
           <a class="header_link" href="register.php">Register</a>
           <a class="header_link" href="login.php">Login</a>
@@ -120,3 +70,25 @@ $CartCategory = new \Controller\CategoryCart();
       </ul><?php endif; ?>
     </nav>
   </header>
+  <!-- Modal Profile Popup -->
+  <div class="personal-modal modal fade cart-add-product add-cart-modal" id="Profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog profile-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+        <?php
+          if (isset($_SESSION['user_id'])){
+              $userId = $_SESSION['user_id'];
+              // $row = $User->displayLoginUser($userId);?>
+          <a class="header_link user-name" href="dashboard.php">Welcome in MultiThink <?php echo $row['first_name']; ?></a>
+          <img src="" alt="">
+          <?php } ?></div>
+        <div class="modal-footer">
+          <img class="header_user_image" src="<?php echo $row['profile_image']; ?>" alt="blue-logo">
+          <button type="button" class=" button-star btn btn-danger" data-dismiss="modal">Close
+              <div class="star"></div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Modal Profile Popup -->

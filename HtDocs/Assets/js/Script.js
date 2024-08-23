@@ -95,6 +95,31 @@ function viewSubCategory(str) {
     xmlhttp.open("GET", "ViewSubCategory.php?q=" + str, true);
     xmlhttp.send();
 }
+function togglePermanentAddress() {
+    const permanentFields = document.getElementById('permanent_address_fields');
+    const checkbox = document.getElementById('same_as_permanent');
+    if (checkbox.checked) {
+        checkbox.style.display = 'none';
+        permanentFields.style.display = 'block';
+    } else {
+        permanentFields.style.display = 'none';
+    }
+}
+function validateForm() {
+    const form = document.forms['purchaseForm'];
+    const formData = new FormData(form);
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'serverBuy.php', true);
+    xhr.onload = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            alert('Success');
+        } else {
+            alert('Failed');
+        }
+    };
+    xhr.send(formData);
+    return console.log('hello');
+}
 window.onload = function() {
     setTimeout(() => {
         $("#remove").hide(); 
@@ -118,7 +143,7 @@ window.onload = function() {
         sidebar.classList.toggle('active');
     });
 
-    if (!!location.href.match(/cart.php/)) {
+    if (!!location.href.match(/Home.php/)) {
         const temp = document.querySelector('#temp');
         const apik = "bc6e90e079477cfea6b91eb9053b9cc0";
         const convertion = (val) => (val - 273.15).toFixed(1); 
@@ -159,33 +184,6 @@ document.addEventListener("DOMContentLoaded", function() {
             window.location.href = 'BuyForm.php?subCategoryId='+subCategoryId;
         }
     });
-});
-function togglePermanentAddress() {
-    const permanentFields = document.getElementById('permanent_address_fields');
-    const checkbox = document.getElementById('same_as_permanent');
-    if (checkbox.checked) {
-        checkbox.style.display = 'none';
-        permanentFields.style.display = 'block';
-    } else {
-        permanentFields.style.display = 'none';
-    }
-}
-function validateForm() {
-    const form = document.forms['purchaseForm'];
-    const formData = new FormData(form);
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'serverBuy.php', true);
-    xhr.onload = function() {
-        if (this.readyState === 4 && this.status === 200) {
-            alert('Success');
-        } else {
-            alert('Failed');
-        }
-    };
-    xhr.send(formData);
-    return console.log('hello');
-}
-document.addEventListener('DOMContentLoaded', function() {
     var dropdowns = document.querySelectorAll('.dropdown-submenu > div > a.test');
     dropdowns.forEach(function(dropdown) {
         dropdown.addEventListener('click', function(event) {
@@ -204,8 +202,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
-});
-document.addEventListener('DOMContentLoaded', function() {
     var dropdownToggle = document.querySelector('.dropdown-toggle');
     var dropdownMenu = document.querySelector('.dropdown-menu');
 

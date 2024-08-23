@@ -29,3 +29,24 @@ div#product-container {
     margin-left: 2px;
     margin-bottom:5px;
 }
+.row{
+    width: 100%;
+    height: auto; 
+    padding: 20px;
+    box-sizing: border-box; 
+    background-color: #f0f0f0;
+}
+.cart-btn{
+    display: flex;
+}
+.cart-crd-btn{
+    left:auto !important;
+    right:auto !important;
+}
+.blur-div{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+}

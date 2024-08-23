@@ -3,13 +3,12 @@ include 'HtDocs/Views/Frontend/Header.php';
 if (!empty($_GET['subCategoryId'])) {
     $subCategoryId = $_GET['subCategoryId'];
     $subCategory = $SubCategoryObj->subCategoryView($subCategoryId);
-
     if ($subCategory) {
         ?>
         <div class="card col-md-3 m-3">
             <div class="card-body text-center">
                 <img id="sub_category_img" class="categorry_view_img" src="<?php echo htmlspecialchars($subCategory['sub_category_image']); ?>" alt="Category Image">
-                <button class='btn btn-danger' onclick="buyProduct(<?php echo $subCategory['sub_category_id']; ?>)">Buy Now</button>
+                <button class="btn btn-danger" onclick="window.location.href = 'BuyForm.php?subCategoryId=<?php echo $subCategory['sub_category_id']; ?>'">Buy Now</button>
                 <button onclick="addAsCookie()" class='btn btn-success'>Add to cart</button>
                 <h1 id="subCategoryId" style="display:none"><?php echo $subCategoryId ?></h1>
             </div>

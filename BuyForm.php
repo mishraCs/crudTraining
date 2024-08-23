@@ -39,7 +39,7 @@ if (isset($_SESSION['user_id'])){
         <p>Please fill in your details as per your Aadhaar or government ID</p>
     </div>
     <div class="form-body">
-        <form class="form-group" method="post" name="purchaseForm" id="BuyForm"  enctype="multipart/form-data">
+        <form class="form-group" method="post" name="purchaseForm" id="BuyForm" autocomplete="on"  enctype="multipart/form-data">
             <div class="col-md-5">
                 <label for="first_name">First Name:</label>
                 <span class="form_error"></span>
@@ -142,17 +142,4 @@ if (isset($_SESSION['user_id'])){
 }else{
     header('Location:login.php');
 } ?>
-
- 
-<script>
-const FormInput = document.getElementById('BuyForm');
-FormInput.addEventListener('input', () => {
-    sessionStorage.setItem('streetValue', streetInput.value);
-});
-
-window.addEventListener('load', () => {
-    const savedStreetValue = sessionStorage.getItem('streetValue');
-    if (savedStreetValue) streetInput.value = savedStreetValue;
-});
-</script>
- 
+<script src="HtDocs/Assets/Js/BuyForm.js"></script>
